@@ -9,6 +9,7 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
+
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
@@ -19,6 +20,18 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+  },
+  {
+    rules: {
+      indent: ["error", 2],
+      'comma-dangle': ["error", "always-multiline"],
+      'semi': ["error", "always"],
+      'quotes': ["error", "single", { "avoidEscape": true }],
+      'object-curly-spacing': ["error", "always"],
+      'array-bracket-spacing': ["error", "never"],
+      'no-multiple-empty-lines': ["error", { "max": 1 }],
+      'eol-last': ["error", "always"],
+    },
   },
 ];
 
