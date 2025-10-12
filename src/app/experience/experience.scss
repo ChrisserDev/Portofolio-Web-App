@@ -1,0 +1,195 @@
+// Variables
+$bg: #181924;
+$card-bg: #23243a;
+$text: #fff;
+$muted: #bdbdbd;
+$primary: #6ba9ef;
+$accent: #ffcc00;
+
+@mixin card {
+    background: $card-bg;
+    border-radius: 8px;
+    box-shadow: 0 4px 32px 0 #00000033;
+    padding: 1rem 1.5rem;
+    min-width: 320px;
+    max-width: 640px;
+    position: relative;
+    z-index: 1;
+    transition: box-shadow 0.2s;
+    &:hover { box-shadow: 0 8px 40px 0 rgba($primary, 0.33); }
+}
+
+@mixin chip {
+    background: $card-bg;
+    border: 1px solid $primary;
+    color: $primary;
+    border-radius: 8px;
+    padding: 0.2rem 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.experience-page-container {
+    background: $bg;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 0;
+    color: $text;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+
+    h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 3.5rem;
+        color: $text;
+        letter-spacing: 1px;
+    }
+
+    .current-job-section,
+    .past-job-section {
+        position: relative;
+        margin: 0 auto;
+        width: 92%;
+        max-width: 1100px;
+        display: grid;
+        grid-template-columns: 1fr 80px 1fr;
+        column-gap: 32px;
+        z-index: 1;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, $accent 0%, $primary 100%);
+            border-radius: 2px;
+            z-index: 0;
+        }
+
+        > img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 8px #00000033;
+            background: #fff;
+            border: 2px solid $primary;
+            position: relative;
+            z-index: 3;
+            grid-column: 2;
+            justify-self: center;
+            margin-bottom: 0.5rem;
+        }
+
+        > span {
+            grid-column: 2;
+            text-align: center;
+        }
+
+        .current-job-title,
+        .past-job-title {
+            grid-column: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 2;
+            height: 20px;
+
+            img {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                object-fit: cover;
+                box-shadow: 0 2px 8px #00000033;
+                background: #fff;
+                border: 2px solid $primary;
+                position: relative;
+                z-index: 3;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 0.2rem;
+                color: $accent;
+
+                a {
+                    color: $primary;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .current-job-header {
+            text-align: right;
+        }
+
+
+        span {
+            font-size: 0.95rem;
+            color: $muted;
+            margin-bottom: 1rem;
+            margin-top: 0.25rem;
+            min-width: auto;
+            text-align: right;
+            display: block;
+        }
+
+        .current-job-description,
+        .past-job-description {
+            @include card;
+
+            p {
+                font-size: 1.08rem;
+                margin-bottom: 1.2rem;
+                color: #e0e0e0;
+            }
+
+            .current-job-tech-stack {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+                list-style: none;
+                padding: 0;
+
+                li { @include chip; margin-right: 0.2rem; }
+            }
+        }
+    }
+
+    > div:nth-of-type(1) {
+        .current-job-description, .current-job-header, .past-job-description, .past-job-header { grid-column: 1; }
+    }
+    > div:nth-of-type(2) {
+        .current-job-description, .past-job-description { grid-column: 3; }
+        .current-job-header, .past-job-header, .current-job-header span { text-align: left; }
+    }
+    > div:nth-of-type(3) {
+        .current-job-description, .current-job-header, .past-job-description, .past-job-header { grid-column: 1; }
+    }
+
+    @media (max-width: 768px) {
+        .current-job-section,
+        .past-job-section {
+            grid-template-columns: 1fr;
+
+            &::before { display: none; }
+
+            .current-job-title,
+            .past-job-title { grid-column: 1; }
+
+            > .current-job-description,
+            > .past-job-description { grid-column: 1; }
+        }
+    }
+}
