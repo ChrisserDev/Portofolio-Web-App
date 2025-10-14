@@ -113,6 +113,17 @@ a {
   min-height: 100vh;
 }
 
+.skills-page-container {
+  display: flex;
+  margin: 10rem auto;
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
 .home-page-content {
   display: flex;
   justify-content: space-between;
