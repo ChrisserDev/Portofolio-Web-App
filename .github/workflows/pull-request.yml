@@ -1,23 +1,29 @@
-name: Pull Request Basic Checks
+name: Pull Request Checks
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  pr-checks:
+  lint-typecheck-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - name: Install dependencies
         run: npm ci
-      - name: Lint
+
+      - name: Lint (ESLint)
         run: npm run lint
-      # - name: Test
-      #   run: npm test
-      # Uncomment the above lines and add tests when ready
+
+      - name: Type check (tsc)
+        run: npm run type-check || npx tsc --noEmit
+
+      - name: Build (Next.js)
+        run: npm run build
