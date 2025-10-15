@@ -1,29 +1,27 @@
-name: Pull Request Checks
+name: Post-Merge Main Checks
 
 on:
-  pull_request:
+  push:
     branches: [main]
 
 jobs:
-  lint-typecheck-build:
+  post-merge-checks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Install dependencies
         run: npm ci
-
-      - name: Lint (ESLint)
+      - name: Lint
         run: npm run lint
-
-      - name: Type check (tsc)
+      - name: Type check
         run: npm run type-check || npx tsc --noEmit
-
-      - name: Build (Next.js)
+      - name: Build
         run: npm run build
+      # - name: Test
+      #   run: npm test
+      # Uncomment the above lines and add tests when ready
