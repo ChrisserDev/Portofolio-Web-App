@@ -1,7 +1,7 @@
 import './experience.scss';
 import Image from 'next/image';
 
-export default function ExperiencePage() {
+export default function ExperiencePage(): React.JSX.Element {
   return (
     <main className='experience-page-container'>
       <h1>Work Experience</h1>
