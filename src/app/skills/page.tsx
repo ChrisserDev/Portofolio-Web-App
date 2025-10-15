@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import './skills.scss';
 
-export default function SkillsPage() {
+export default function SkillsPage(): React.JSX.Element {
   return (
     <main className='skills-page-container'>
       <h1>Skills</h1>
