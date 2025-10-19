@@ -1,9 +1,34 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import './NavigationMenu.scss';
 
 export default function NavigationMenu(): React.JSX.Element {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <nav className='navigation-menu'>
+    <>
+      <button className='mobile-menu-toggle' onClick={toggleMenu}>
+        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
+          {isMenuOpen ? (
+            <>
+              <line x1='18' y1='6' x2='6' y2='18'></line>
+              <line x1='6' y1='6' x2='18' y2='18'></line>
+            </>
+          ) : (
+            <>
+              <line x1='3' y1='6' x2='21' y2='6'></line>
+              <line x1='3' y1='12' x2='21' y2='12'></line>
+              <line x1='3' y1='18' x2='21' y2='18'></line>
+            </>
+          )}
+        </svg>
+      </button>
+      <nav className={`navigation-menu ${isMenuOpen ? 'mobile-open' : ''}`}>
       <ul className='navigation-pages'>
         <li>
           <Link href='/' aria-label='About Me Section'>About Me</Link>
@@ -23,7 +48,7 @@ export default function NavigationMenu(): React.JSX.Element {
       </ul>
       <ul className='social-links'>
         <li>
-          <a href='#' aria-label='Email' role='link' tabIndex={0}>
+          <a href='mailto:cristian.serban33@yahoo.com' aria-label='Email' role='link' tabIndex={0}>
             <svg width='24'height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' role='img' aria-labelledby='emailIconTitle' focusable='false'>
               <title id='emailIconTitle'>Email</title>
               <rect x='2' y='4' width='20' height='16' rx='2' />
@@ -49,5 +74,6 @@ export default function NavigationMenu(): React.JSX.Element {
         </li>
       </ul>
     </nav>
+    </>
   );
-};
+}

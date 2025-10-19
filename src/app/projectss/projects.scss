@@ -57,7 +57,9 @@ $accent: #ffcc00;
         list-style: none;
         padding: 0;
         margin: 0;
-
+        @media screen and (max-width: 999px) {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
             .project-card {
                 list-style: none;
 
@@ -79,7 +81,7 @@ $accent: #ffcc00;
                     }
 
                     .project-card-body {
-                        padding: 1rem 1.2rem;
+                        padding: 0 1.2rem 1rem 1.2rem;
                         display: flex;
                         flex-direction: column;
                         gap: 1.5rem;
@@ -95,12 +97,23 @@ $accent: #ffcc00;
                                 font-size: 1.4rem;
                                 font-weight: 700;
                                 color: $text;
+                                @media screen and (max-width: 999px) {
+                                    font-size: 1.2rem;
+                                }
+                                @media screen and (max-width: 550px) {
+                                    font-size: 1.1rem;
+                                }
                             }
 
                             .project-links {
                                 display: inline-flex;
                                 gap: 0.8rem;
-
+                                @media screen and (max-width: 999px) {
+                                    margin-top: 1rem;
+                                }
+                                @media screen and (max-width: 559px) {
+                                    margin-top: 0;
+                                }
                                 a {
                                     background-color: $accent;
                                     font-weight: 600;
@@ -110,7 +123,10 @@ $accent: #ffcc00;
                                     border-radius: 999px;
                                     letter-spacing: 0.5px;
                                     transition: background-color 0.15s ease;
-
+                                    @media screen and (max-width: 550px) {
+                                        font-size: .7rem;
+                                        padding: .4rem .6rem;
+                                    }
                                     &:hover {
                                         background-color: lighten($accent, 15%);
                                     }
@@ -138,6 +154,10 @@ $accent: #ffcc00;
                                 background: rgba($accent, 0.18);
                                 color: $accent;
                                 border: 1px solid rgba($accent, 0.35);
+                                @media screen and (max-width: 550px) {
+                                    font-size: .7rem;
+                                    padding: .4rem .6rem;
+                                }
                             }
                         }
                     }
@@ -155,12 +175,6 @@ $accent: #ffcc00;
         .projects-list {
             width: 92%;
             gap: 2rem;
-
-                    .project-card .project-card-content {
-                        .project-card-body {
-                            padding: 1.5rem;
-                        }
-                    }
         }
     }
 }

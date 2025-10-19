@@ -6,8 +6,15 @@ export default function Home() {
     <main className='home-page-container'>
       <div className='home-page-content'>
         <div className='home-page-title'>
-          <h1>Hi, I&apos;m</h1>
-          <h2>Cristian Serban</h2>
+          <div className='title-with-image'>
+            <div className='title-text'>
+              <h1>Hi, I&apos;m</h1>
+              <h2>Cristian Serban</h2>
+            </div>
+            <div className='portrait-image-wrapper mobile-portrait'>
+              <Image className='portrait-image' src="/portrait.png" width={120} height={120} alt="Image of Cristian Serban"/>
+            </div>
+          </div>
           <h3>Full Stack Developer</h3>
           <p className='home-page-description'>
             I&apos;m a Full-Stack Developer, currently working with <span className='desc-skill'>JavaScript</span>, <span className='desc-skill'>TypeScript</span>, <span className='desc-skill'>CSS/SASS</span>, <span className='desc-skill'>React</span>, <span className='desc-skill'>Node.js</span>, <span className='desc-skill'>SQL</span>, <span className='desc-skill'>GraphQL</span>, and <span className='desc-skill'>GCP</span>.My toolkit also includes <span className='desc-skill'>Git/GitHub</span>, <span className='desc-skill'>Github Actions</span>, testing <span className='desc-skill'>(Playwright)</span>, and modern build tools <span className='desc-skill'>(Webpack)</span>. <br/>  <br/>
