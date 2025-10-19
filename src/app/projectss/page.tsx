@@ -5,6 +5,8 @@ import { db } from '@/db';
 import { projects } from '@/db/schema';
 import './projects.scss';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Projects(): Promise<JSX.Element> {
   const projectEntries = await db.select().from(projects).orderBy(projects.id);
 
