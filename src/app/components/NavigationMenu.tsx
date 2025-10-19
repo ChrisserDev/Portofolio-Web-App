@@ -9,16 +9,16 @@ export default function NavigationMenu(): React.JSX.Element {
           <Link href='/' aria-label='About Me Section'>About Me</Link>
         </li>
         <li>
-          <Link href='/experience'>Work Experience</Link>
+          <Link href='/experience' aria-label='Work Experience Section'>Work Experience</Link>
         </li>
         <li>
-          <Link href='/projects'>Projects</Link>
+          <Link href='/projectss' aria-label='Projects Section'>Projects</Link>
         </li>
         <li>
-          <Link href='/skills'>Skills</Link>
+          <Link href='/skills' aria-label='Skills Section'>Skills</Link>
         </li>
         <li>
-          <Link href='/blog'>Blog</Link>
+          <Link href='/blog' aria-label='Blog Section'>Blog</Link>
         </li>
       </ul>
       <ul className='social-links'>

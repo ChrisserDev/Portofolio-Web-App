@@ -1,0 +1,167 @@
+$bg: #181924;
+$card-bg: #23243a;
+$text: #fff;
+$muted: #bdbdbd;
+$primary: #6ba9ef;
+$accent: #ffcc00;
+
+@mixin card {
+    background: $card-bg;
+    border-radius: 12px;
+    box-shadow: 0 4px 28px 0 rgba(0, 0, 0, 0.45);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 10px 36px 0 rgba($primary, 0.34);
+    }
+}
+
+@mixin chip {
+    background: rgba($primary, 0.12);
+    color: $primary;
+    border: 1px solid rgba($primary, 0.3);
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.projects-page-container {
+    background: $bg;
+    color: $text;
+    padding: 0 0 6rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    text-align: left;
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $text;
+    }
+
+    .projects-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2.5rem;
+        width: min(1100px, 92%);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+            .project-card {
+                list-style: none;
+
+                .project-card-content {
+                    @include card;
+                    padding: 0;
+                    overflow: hidden;
+
+                    .project-visual {
+                        background: darken($card-bg, 4%);
+
+                        img {
+                            width: 100%;
+                            height: 320px;
+                            display: block;
+                            border: none;
+                            border-radius: 0;
+                        }
+                    }
+
+                    .project-card-body {
+                        padding: 1rem 1.2rem;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1.5rem;
+                        background: $card-bg;
+
+                        .project-card-header {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            flex-wrap: wrap;
+
+                            h2 {
+                                font-size: 1.4rem;
+                                font-weight: 700;
+                                color: $text;
+                            }
+
+                            .project-links {
+                                display: inline-flex;
+                                gap: 0.8rem;
+
+                                a {
+                                    background-color: $accent;
+                                    font-weight: 600;
+                                    color: $bg;
+                                    padding: .5rem .8rem;
+                                    font-size: .9rem;
+                                    border-radius: 999px;
+                                    letter-spacing: 0.5px;
+                                    transition: background-color 0.15s ease;
+
+                                    &:hover {
+                                        background-color: lighten($accent, 15%);
+                                    }
+                                }
+                            }
+                        }
+
+                        .project-description {
+                            font-size: 1rem;
+                            line-height: 26px;
+                            min-height: 60px;
+                            color: lighten($muted, 18%);
+                        }
+
+                        .project-tech-stack {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 0.6rem;
+                            list-style: none;
+                            padding: 0;
+                            margin: 0;
+
+                            li {
+                                @include chip;
+                                background: rgba($accent, 0.18);
+                                color: $accent;
+                                border: 1px solid rgba($accent, 0.35);
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
+    @media (max-width: 768px) {
+        padding: 3rem 0 4rem;
+
+        h1 {
+            font-size: 2.1rem;
+        }
+
+        .projects-list {
+            width: 92%;
+            gap: 2rem;
+
+                    .project-card .project-card-content {
+                        .project-card-body {
+                            padding: 1.5rem;
+                        }
+                    }
+        }
+    }
+}
