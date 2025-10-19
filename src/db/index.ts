@@ -1,8 +1,7 @@
-import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
-const databaseUrl = process.env.DATABASE_URL; // Supabase connection string
+const databaseUrl = process.env.DATABASE_URL;
 
 if (!databaseUrl) {
   throw new Error('Environment variable DATABASE_URL is required but was not provided.');
