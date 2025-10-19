@@ -104,6 +104,7 @@ a {
 }
 
 .home-page-container,
+.projects-page-container,
 .experience-page-container {
   display: flex;
   flex-direction: column;
@@ -113,6 +114,7 @@ a {
   min-height: 100vh;
 }
 
+.projects-page-container,
 .skills-page-container {
   display: flex;
   margin: 10rem auto;
