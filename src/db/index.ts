@@ -7,10 +7,11 @@ if (!databaseUrl) {
   throw new Error('Environment variable DATABASE_URL is required but was not provided.');
 }
 
+// Prevent duplicate clients during hot reload
 const globalForDb = globalThis as unknown as {
   __drizzleClient?: ReturnType<typeof postgres>;
   __drizzleDb?: ReturnType<typeof drizzle>;
-}; // Prevent duplicate clients during hot reload
+};
 
 const client =
   globalForDb.__drizzleClient ?? postgres(databaseUrl, { prepare: false });
