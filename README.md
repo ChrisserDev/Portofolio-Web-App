@@ -1,3 +1,3 @@
 # Personal Website
 
-Personal Website built using Next.js, CSS/SASS, Typescript,  PostgreSQL, Drizzle and Supabase.
+Personal Website built using Next.js, Typescript, PostgreSQL, Drizzle and Supabase.
