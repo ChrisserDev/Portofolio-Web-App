@@ -34,10 +34,11 @@ $accent: #ffcc00;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 4rem 0;
     color: $text;
-    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-
+    font-family: 'Quicksand', Helvetica, sans-serif;
+    @media screen and (max-width: 769px) {
+        padding: 3rem 0 4rem;
+    }
     h1 {
         text-align: center;
         font-size: 2.5rem;
