@@ -1,3 +1,4 @@
+import './blog.scss';
 
 export default function Blog(): React.JSX.Element {
   return (

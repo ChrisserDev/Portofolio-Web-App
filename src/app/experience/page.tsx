@@ -23,11 +23,8 @@ export default function ExperiencePage(): React.JSX.Element {
             <li>Javascript</li>
             <li>TypeScript</li>
             <li>React</li>
-            <li>CSS/SAAS</li>
             <li>Node.js</li>
             <li>Express.js</li>
-            <li>Handlebars</li>
-            <li>HTML</li>
             <li>Adobe XD</li>
             <li>GraphQL</li>
             <li>SQL</li>
