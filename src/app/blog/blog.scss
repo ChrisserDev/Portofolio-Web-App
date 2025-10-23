@@ -1,3 +1,143 @@
 .blog-page-container {
     flex-direction: column;
+    align-items: center;
+    width: calc(70vw - 20rem);
+    min-height: 100vh;
+    position: relative;
+    isolation: isolate;
+    @media screen and (max-width: 999px) {
+        width: calc(100vw - 2rem);
+    }
+    h1 {
+        @media screen and (max-width: 999px) {
+            font-size: 1.5rem;
+            text-align: center;
+            padding-top: 4rem;
+        }
+    }
+    .accent-underline {
+        position: relative;
+        display: inline-block;
+    }
+    .accent-underline::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -0.25em;
+        width: 100%;
+        height: 6px;
+        border-radius: 999px;
+        background: #ffcc00;
+        box-shadow: 0 4px 18px rgba(255, 204, 0, 0.35);
+    }
+    .blog-page-introduction {
+        padding: 1.5rem 2rem;
+        font-size: 1.25rem;
+        margin: 2rem auto;
+        max-width: 88ch;
+        line-height: 1.85;
+        color: var(--foreground);
+        background: linear-gradient(135deg, rgba(14, 97, 108, 0.04), rgba(146, 224, 235, 0.03));
+        border-left: 4px solid #ffcc00;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(14, 97, 108, 0.08);
+        letter-spacing: 0.01em;
+        font-weight: 400;
+        @media screen and (max-width: 999px) {
+            font-size: 1rem;
+        }
+    }
+    .blog-page-topics-list {
+        position: sticky;
+        top: calc(var(--nav-height, 64px) + 8px);
+        z-index: 2;
+        margin-top: 2rem;
+        padding: 1.5rem 3rem;
+        max-width: 100%;
+        overflow: hidden;        
+        .swiper-button-next,
+        .swiper-button-prev {
+            width: 30px;
+            height: 50px;
+            padding: 8px;
+            background: rgba(255, 204, 0, 0.9);
+            color: #0e616c;
+            &:after {
+                font-size: 18px;
+                font-weight: bold;
+            }
+            &:hover {
+                background: #ffcc00;
+                color: #181924;
+            }
+            
+            &.swiper-button-disabled {
+                opacity: 0.3;
+                cursor: not-allowed;
+            }
+        }
+        .swiper-button-prev {
+            left: 0;
+        }
+        .swiper-button-next {
+            right: 0;
+        }
+        .swiper-wrapper {
+            align-items: center;
+        }
+        
+        .swiper-slide {
+            width: auto !important;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            background: linear-gradient(0deg, rgba(14, 97, 108, 0.06), rgba(14, 97, 108, 0.02));
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 120px;
+            padding: 1rem;
+            border-radius: 16px;
+            border: 1px solid rgba(14, 97, 108, 0.25);
+            background: rgba(14, 97, 108, 0.06);
+            color: var(--foreground);
+            white-space: nowrap;
+            line-height: 1.2;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 150ms ease, border-color 150ms ease, box-shadow 150ms ease, transform 120ms ease, color 150ms ease;
+
+            &:hover {
+                background: rgba(255, 204, 0, 0.15);
+                border-color: rgba(255, 204, 0, 0.45);
+                box-shadow: 0 6px 18px rgba(14, 97, 108, 0.2);
+                transform: translateY(-2px);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+            
+            .topic-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(14, 97, 108, 0.2);
+            }
+            
+            span {
+                text-align: center;
+                display: block;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .swiper-slide {
+                transition: none;
+                transform: none !important;
+            }
+        }
+    }
 }

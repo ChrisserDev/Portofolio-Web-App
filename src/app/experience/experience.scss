@@ -7,7 +7,7 @@ $primary: #6ba9ef;
 $accent: #ffcc00;
 
 @mixin card {
-    background: $card-bg;
+    background: linear-gradient(135deg, rgba(14, 97, 108, .04), rgba(146, 224, 235, .03));
     border-radius: 8px;
     box-shadow: 0 4px 32px 0 #00000033;
     padding: 1rem 1.5rem;
@@ -20,9 +20,9 @@ $accent: #ffcc00;
 }
 
 @mixin chip {
-    background: $card-bg;
-    border: 1px solid $primary;
-    color: $primary;
+    background: linear-gradient(135deg, rgba(14, 97, 108, .04), rgba(146, 224, 235, .03));
+    border: 1px solid rgba(14, 97, 108, 0.3);
+    color: #92e0eb;
     border-radius: 8px;
     padding: 0.2rem 0.8rem;
     font-size: 0.95rem;
@@ -154,13 +154,12 @@ $accent: #ffcc00;
         .current-job-description,
         .past-job-description {
             @include card;
-
             p {
-                font-size: 1.08rem;
+                font-size: 1rem;
                 margin-bottom: 1.2rem;
+                line-height: 26px;
                 color: #e0e0e0;
             }
-
             .current-job-tech-stack {
                 display: flex;
                 flex-wrap: wrap;
@@ -168,7 +167,6 @@ $accent: #ffcc00;
                 margin-bottom: 1rem;
                 list-style: none;
                 padding: 0;
-
                 li { @include chip; margin-right: 0.2rem; }
             }
         }
@@ -185,7 +183,6 @@ $accent: #ffcc00;
         .current-job-description, .current-job-header, .past-job-description, .past-job-header { grid-column: 1; }
     }
 
-    // Mobile redesign for better timeline experience
     @media (max-width: 999px) {
         .current-job-section,
         .past-job-section {
@@ -232,7 +229,7 @@ $accent: #ffcc00;
             .current-job-description,
             .past-job-description {
                 width: 100%;
-                margin-right: 60px; // Space for positioned image
+                margin-right: 60px;
                 background: transparent;
                 box-shadow: none;
                 padding: 0;

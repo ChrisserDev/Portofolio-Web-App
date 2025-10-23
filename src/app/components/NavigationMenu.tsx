@@ -24,7 +24,7 @@ export default function NavigationMenu(): React.JSX.Element {
           )}
         </svg>
       </button>
-      <nav className={`navigation-menu ${isMenuOpen ? 'mobile-open' : ''}`}>
+      <nav className={`navigation-menu ${isMenuOpen ? 'mobile-open' : ''}`}  onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <ul className='navigation-pages'>
           <li>
             <Link href='/' aria-label='About Me Section'>About Me</Link>
