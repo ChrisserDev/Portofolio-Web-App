@@ -6,7 +6,7 @@ $primary: #6ba9ef;
 $accent: #ffcc00;
 
 @mixin card {
-    background: $card-bg;
+    background: linear-gradient(135deg, rgba(14, 97, 108, .04), rgba(146, 224, 235, .03));
     border-radius: 12px;
     box-shadow: 0 4px 28px 0 rgba(0, 0, 0, 0.45);
     padding: 1.75rem;
@@ -21,9 +21,9 @@ $accent: #ffcc00;
 }
 
 @mixin chip {
-    background: rgba($primary, 0.12);
-    color: $primary;
-    border: 1px solid rgba($primary, 0.3);
+    background: linear-gradient(135deg, rgba(14, 97, 108, .08), rgba(146, 224, 235, .06));
+    color: #92e0eb;
+    border: 1px solid rgba(14, 97, 108, 0.3);
     border-radius: 999px;
     padding: 0.35rem 0.9rem;
     font-size: 0.9rem;
@@ -80,14 +80,12 @@ $accent: #ffcc00;
                         }
                     }
 
-                    .project-card-body {
-                        padding: 0 1.2rem 1rem 1.2rem;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 1.5rem;
-                        background: $card-bg;
-
-                        .project-card-header {
+                        .project-card-body {
+                            padding: 0 1.2rem 1rem 1.2rem;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 1.5rem;
+                            background: linear-gradient(135deg, rgba(14, 97, 108, .04), rgba(146, 224, 235, .03));                        .project-card-header {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
@@ -152,9 +150,6 @@ $accent: #ffcc00;
 
                             li {
                                 @include chip;
-                                background: rgba($accent, 0.18);
-                                color: $accent;
-                                border: 1px solid rgba($accent, 0.35);
                                 @media screen and (max-width: 550px) {
                                     font-size: .7rem;
                                     padding: .4rem .6rem;
@@ -168,11 +163,9 @@ $accent: #ffcc00;
 
     @media (max-width: 768px) {
         padding: 3rem 0 4rem;
-
         h1 {
             font-size: 2.1rem;
         }
-
         .projects-list {
             width: 92%;
             gap: 2rem;
