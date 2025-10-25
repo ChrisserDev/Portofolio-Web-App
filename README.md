@@ -1,3 +1,3 @@
 # Personal Website
 
-Personal Website built using Next.js, Typescript, PostgreSQL, Drizzle and Supabase.
+Full stack personal web app built using Next.js, Typescript, PostgreSQL, Drizzle and Supabase.
