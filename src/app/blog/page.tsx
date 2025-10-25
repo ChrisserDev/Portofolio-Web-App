@@ -86,6 +86,7 @@ export default function Blog(): React.JSX.Element {
           <span>SASS</span>
         </SwiperSlide>
       </Swiper>
+      <Image src='/coming_soon.png' alt='Under Construction' width={400} height={300} />
     </main>
   );
 }
