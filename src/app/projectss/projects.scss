@@ -62,11 +62,16 @@ $accent: #ffcc00;
         }
             .project-card {
                 list-style: none;
+                height: 100%;
 
                 .project-card-content {
                     @include card;
                     padding: 0;
                     overflow: hidden;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: stretch;
 
                     .project-visual {
                         background: darken($card-bg, 4%);
@@ -76,6 +81,9 @@ $accent: #ffcc00;
                             display: block;
                             border: none;
                             border-radius: 0;
+                            @media screen and (max-width: 769px) {
+                                height: 220px;
+                            }
                         }
                     }
 
@@ -84,7 +92,9 @@ $accent: #ffcc00;
                             display: flex;
                             flex-direction: column;
                             gap: 1.5rem;
-                            background: linear-gradient(135deg, rgba(14, 97, 108, .04), rgba(146, 224, 235, .03));                        .project-card-header {
+                            background: linear-gradient(135deg, rgba(14, 97, 108, .04), rgba(146, 224, 235, .03));
+
+                        .project-card-header {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;

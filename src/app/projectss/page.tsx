@@ -25,9 +25,11 @@ export default async function Projects(): Promise<JSX.Element> {
                 <header className='project-card-header'>
                   <h2>{project.title}</h2>
                   <nav className='project-links'>
+                    {project.demo[0] && 
                     <Link href={project.demo[0]} target='_blank' rel='noreferrer noopener'>
                         GitHub Repo
                     </Link>
+                    }
                     <Link href={project.demo[1]} target='_blank' rel='noreferrer noopener'>
                       Live Demo
                     </Link>
