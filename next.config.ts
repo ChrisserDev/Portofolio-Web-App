@@ -1,6 +1,15 @@
 import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
+import remarkFrontmatter from 'remark-frontmatter';
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [remarkFrontmatter],
+  },
+});
 
 const nextConfig: NextConfig = {
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   env: {
     DATABASE_URL: process.env.DATABASE_URL,
   },
@@ -15,4 +24,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withMDX(nextConfig);
