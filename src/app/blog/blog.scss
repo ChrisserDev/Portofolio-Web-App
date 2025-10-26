@@ -140,4 +140,52 @@
             }
         }
     }
+
+    .blog-posts {
+        margin-top: 3rem;
+        width: 100%;
+        max-width: 800px;
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--foreground);
+        }
+
+        a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 1.5rem;
+
+            article {
+                padding: 1.5rem;
+                border: 1px solid rgba(14, 97, 108, 0.2);
+                border-radius: 8px;
+                transition: box-shadow 0.2s ease;
+
+                &:hover {
+                    box-shadow: 0 4px 12px rgba(14, 97, 108, 0.1);
+                }
+
+                h3 {
+                    font-size: 1.5rem;
+                    margin-bottom: 0.5rem;
+                    color: var(--foreground);
+                }
+
+                p {
+                    color: var(--foreground);
+                    opacity: 0.8;
+                    margin-bottom: 0.5rem;
+                }
+
+                time {
+                    font-size: 0.9rem;
+                    color: var(--foreground);
+                    opacity: 0.6;
+                }
+            }
+        }
+    }
 }
