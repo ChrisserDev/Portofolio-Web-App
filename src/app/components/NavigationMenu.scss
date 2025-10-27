@@ -103,7 +103,8 @@
     max-width: 400px;
     transition: left 0.3s ease;
     @media screen and (max-width: 550px) {
-      max-width: 290px;
+      width: 100%;
+      max-width: 550px;
     }
     
     &.mobile-open {
@@ -163,7 +164,7 @@
   }
   
   @media screen and (max-width: 550px) {
-    margin: 4rem 2rem;
+    margin: 5rem 2rem;
   }
   .portrait-image-wrapper {
     position: relative;
@@ -216,6 +217,7 @@
     .title-with-image {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 10rem;
       
       .title-text {
@@ -236,7 +238,7 @@
       
       .title-text {
         h1, h2 {
-          font-size: 2.2rem !important;
+          font-size: 1.8rem !important;
         }
       }
     }
@@ -293,7 +295,7 @@
     }
     @media screen and (max-width: 550px) {
       padding-top: 1.5rem;
-      font-size: 1rem;
+      font-size: 0.9rem;
       line-height: 28px;
       letter-spacing: 0.5px;
     }
@@ -330,7 +332,7 @@
       box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
     }
     @media screen and (max-width: 999px) {
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 }
 
@@ -350,7 +352,11 @@
     animation: fadeIn 1.2s 0.5s forwards;
   }
   h3 {
-    animation-delay: 2.2s;
+    animation-delay: 1.8s;
+    @media screen and (max-width: 551px) {
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
   }
 
   h2 {
