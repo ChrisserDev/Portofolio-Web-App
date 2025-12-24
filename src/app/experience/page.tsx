@@ -12,13 +12,12 @@ export default function ExperiencePage(): React.JSX.Element {
           </a>
         </div>
         <div className='current-job-header'>
-          <h2>Web Developer</h2>
+          <h2>Software Developer</h2>
           <span>04/2024 - Present</span>
         </div>
         <div className='current-job-description'>
           <p>
-            At ITS, I help build and improve our web application. I moved one of our websites to a faster platform, made pages load quicker, and made it easier for customers to find and buy products. I also connected our site with tools for reviews, chat, and support, so customers can get help and share feedback easily. I work with other teams to add new features and make sure everything runs smoothly.
-          </p>
+            At ITS, I work on a production e-commerce web application, contributing across frontend development, backend integrations, and cloud services. My work involves React-based interfaces, performance-focused frontend development, third-party service integrations, and collaboration across teams to support ongoing feature development and platform stability.          </p>
           <ul className='current-job-tech-stack'>
             <li>Javascript</li>
             <li>TypeScript</li>
