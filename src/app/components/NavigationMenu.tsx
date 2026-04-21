@@ -1,10 +1,16 @@
 'use client';
 import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import './NavigationMenu.scss';
 
 export default function NavigationMenu(): React.JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const handleNavPageActiveState = (href: string): string => {
+    return pathname === href ? 'is-active' : '';
+  };
 
   return (
     <>
@@ -27,19 +33,19 @@ export default function NavigationMenu(): React.JSX.Element {
       <nav className={`navigation-menu ${isMenuOpen ? 'mobile-open' : ''}`}  onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <ul className='navigation-pages'>
           <li>
-            <Link href='/' aria-label='About Me Section'>About Me</Link>
+            <Link href='/' className={handleNavPageActiveState('/')} aria-label='About Me Section'>About Me</Link>
           </li>
           <li>
-            <Link href='/experience' aria-label='Work Experience Section'>Work Experience</Link>
+            <Link href='/experience' className={handleNavPageActiveState('/experience')} aria-label='Work Experience Section'>Work Experience</Link>
           </li>
           <li>
-            <Link href='/projectss' aria-label='Projects Section'>Projects</Link>
+            <Link href='/projectss' className={handleNavPageActiveState('/projectss')} aria-label='Projects Section'>Projects</Link>
           </li>
           <li>
-            <Link href='/skills' aria-label='Skills Section'>Skills</Link>
+            <Link href='/skills' className={handleNavPageActiveState('/skills')} aria-label='Skills Section'>Skills</Link>
           </li>
           <li>
-            <Link href='/blog' aria-label='Blog Section'>Blog</Link>
+            <Link href='/blog' className={handleNavPageActiveState('/blog')} aria-label='Blog Section'>Blog</Link>
           </li>
         </ul>
         <ul className='social-links'>

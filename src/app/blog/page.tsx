@@ -14,7 +14,7 @@ export default function Blog(): React.JSX.Element {
         This is where I share what I&apos;m <span className='highlight'>learning</span> (and sometimes <span className='highlight'>unlearning</span>) while building with modern web technologies. <br/>  <br/>
         Have a look below and explore the topics that interest you most. Whether you&apos;re just starting out or already deep in the stack, I hope you find something <span className='highlight'>useful</span> here — or at least something that sparks an <span className='highlight'>idea</span> for your next project.
       </p>
-      <TopicsSlider />
+      {/* <TopicsSlider /> */}
       
       <div className="blog-posts">
         <h2>Latest Posts</h2>
