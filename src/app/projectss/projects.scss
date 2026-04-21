@@ -92,6 +92,7 @@ $accent: #ffcc00;
                             display: flex;
                             flex-direction: column;
                             gap: 1.5rem;
+                            flex: 1;
                             background: linear-gradient(135deg, rgba(14, 97, 108, .04), rgba(146, 224, 235, .03));
 
                         .project-card-header {
@@ -146,6 +147,7 @@ $accent: #ffcc00;
                             font-size: 1rem;
                             line-height: 26px;
                             min-height: 60px;
+                            flex: 1;
                             color: lighten($muted, 18%);
                         }
 

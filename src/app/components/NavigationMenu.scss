@@ -4,19 +4,23 @@
   justify-content: center;
   background-color: var(--background-nav);
   background: linear-gradient(0deg, #0e616c 0%, var(--background-nav) 70%);
-  padding: 10rem 6rem;
+  padding: 0 5rem;
   height: 100vh;
-  gap: 5rem;
+  gap: 4rem;
   width: 20vw;
+  min-width: 180px;
   text-align: center;
   position: sticky;
   top: 0;
   align-self: flex-start;
+  @media screen and (max-width: 1200px) {
+    padding: 6rem 2rem;
+  }
   @media screen and (max-width: 768px) {
-    padding: 4rem;
+    padding: 4rem 2rem;
   }
   .navigation-pages {
-    gap: 4.2rem;
+    gap: 1.6rem;
   }
   ul {
     list-style: none;
@@ -24,34 +28,36 @@
     flex-direction: column;
     justify-content: center;
     li {
-      font-size: 1.4rem;
+      font-size: 1.1rem;
       font-weight: bold;
-      @media screen and (max-width: 999px) {
-        font-size: 1.2rem;
+      @media screen and (max-width: 1200px) {
+        font-size: 1rem;
       }
-      a {
-        position: relative;
-        transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        text-decoration: none;
-        
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: -2px;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background-color: #92e0eb;
-          transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        &:hover {
-          color: #92e0eb;
-          
-          &::after {
-            width: 100%;
-          }
-        }
+      @media screen and (max-width: 999px) {
+        font-size: 1.1rem;
+      }
+    }
+  }
+  .navigation-pages {
+    gap: 3rem;
+    margin-top: 5rem;
+    li a {
+      display: block;
+      text-decoration: none;
+      padding: 0.4rem 0;
+      border: 2px solid #92e0eb;
+      border-radius: 8px;
+      background-color: rgba(146, 224, 235, 0.08);
+      transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+
+      &:hover, &.is-active {
+        color: #92e0eb;
+        background-color: rgba(146, 224, 235, 0.18);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
       }
     }
   }
@@ -60,6 +66,15 @@
     ul {
       li {
         font-size: 2rem !important;
+        a {
+          position: relative;
+          transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          text-decoration: none;
+
+          &:hover {
+            color: #92e0eb;
+          }
+        }
       }
     }
   }
@@ -100,7 +115,8 @@
     width: 80vw;
     height: 100vh;
     z-index: 1000;
-    max-width: 400px;
+    max-width: 320px;
+    padding: 6rem 2rem 4rem;
     transition: left 0.3s ease;
     @media screen and (max-width: 550px) {
       width: 100%;
@@ -155,6 +171,7 @@
 .home-page-content {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 0 5rem;
   @media screen and (max-width: 999px) {
     flex-direction: column;
@@ -164,7 +181,7 @@
   }
   
   @media screen and (max-width: 550px) {
-    margin: 5rem 2rem;
+    margin: 0rem 2rem;
   }
   .portrait-image-wrapper {
     position: relative;

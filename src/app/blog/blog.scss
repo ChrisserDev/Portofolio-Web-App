@@ -1,7 +1,8 @@
 .blog-page-container {
     flex-direction: column;
     align-items: center;
-    width: calc(70vw - 20rem);
+    width: calc(70vw - 18rem);
+    margin-top: 10rem;
     min-height: 100vh;
     position: relative;
     isolation: isolate;
@@ -44,8 +45,8 @@
         border-left: 4px solid #ffcc00;
         border-radius: 8px;
         box-shadow: 0 2px 12px rgba(14, 97, 108, 0.08);
-        letter-spacing: 0.01em;
-        font-weight: 400;
+        letter-spacing: 0.1em;
+        font-weight: 300;
         @media screen and (max-width: 999px) {
             font-size: 1rem;
         }
@@ -147,7 +148,7 @@
     .blog-posts {
         margin-top: 3rem;
         width: 100%;
-        max-width: 800px;
+        max-width: 1030px;
 
         h2 {
             font-size: 2rem;
