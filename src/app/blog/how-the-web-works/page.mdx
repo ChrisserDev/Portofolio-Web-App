@@ -1,0 +1,145 @@
+---
+title: 'How the Web Actually Works — From Typing a URL to Loading a Page'
+description: 'A step-by-step breakdown of what happens between typing a URL and seeing a page load — from DNS lookups and TCP handshakes to how your browser renders HTML.'
+date: '2026-04-21'
+image: '/blog_posts/article_preview_image.png'
+---
+
+# How the Web Actually Works — From Typing a URL to Loading a Page
+
+<div className="blog-callout">
+  If you've ever wondered how we got from sharing text documents to running full
+  applications in a browser tab, this one's for you.
+</div>
+
+<figure className="blog-figure">
+  <img
+    src="/blog_posts/article_preview_image.png"
+    alt="How the Web Actually Works — From Typing a URL to Loading a Page"
+  />
+</figure>
+
+Despite working with it every day, most developers don't have a clear picture of what actually happens between typing a URL and seeing a page load. This article follows that journey step by step — from the moment a request is made, through the network and the browser, all the way to pixels on the screen.
+
+## The OSI (Open Systems Interconnection) Model
+
+This was something that didn't really click for me at first, but after spending some time on it, I can now explain it in simple and practical ways.
+
+So what is the OSI model? It's a visual representation of how communication between systems works, broken down into 7 layers. Each layer represents a specific step in the journey data takes from one computer to another. Let's go through each layer to understand it.
+
+<figure className="blog-figure">
+  <img src="/blog_posts/osi_model_diagram.png" alt="The OSI Model Diagram" />
+  <figcaption>
+    The OSI Model Diagram. Source:{' '}
+    <a
+      href="https://tinyurl.com/2baxdk74"
+      target="_blank"
+      rel="noreferrer noopener"
+    >
+      https://tinyurl.com/2baxdk74
+    </a>
+  </figcaption>
+</figure>
+
+### 1. The Application (L7)
+
+The application layer is the top level part of the OSI model. When you type a URL and hit enter, this is where the HTTP (Hypertext Transfer Protocol), request is created and only focuses on what data needs to be sent.
+
+### 2. Session/Presentation (L5-L6)
+
+Now that the request exists, the browser or runtime prepares this to be sent across the network. Think of it like writing a letter — you write it, put it in an envelope, and seal it before sending.
+
+At this stage, the data gets formatted (into JSON or HTTP), encoded and optionally compressed, and encrypted using TLS (Transport Layer Security) so it can't be read or tampered with.
+
+### 3. Transport (L4)
+
+The request is then passed down to the transport layer, where protocols like TCP (Transmission Control Protocol) or UDP (User Datagram Protocol) take over. This layer breaks the data into smaller segments, makes sure they arrive in the right order, and resends anything that goes missing.
+
+But why do we need to break it down into smaller segments? Well, think about what might happen when you try to request a page — a lot of things can go wrong, such as losing connection for a second, or the server delaying the response due to networking issues. So breaking it down into small segments ensures that only the missing data needs to be sent again, rather than the whole thing.
+
+### 4. Network Layer (L3)
+
+Each segment gets wrapped into an IP packet with a source and destination IP address attached. This layer handles routing, figuring out the path the data takes from your machine to the destination server.
+
+### 5. Hardware Layers (L2-L1)
+
+At the lowest level, the hardware layers are responsible for physically moving data across the network.
+
+Data moves between nearby devices using MAC addresses, then gets converted into actual signals such as electrical pulses, light through fibre, or radio waves over WiFi and sent out.
+
+You might also think — why do we actually need 7 layers? Why can't this just be one big thing?
+
+Well, think about what happens when something goes wrong. If it's all one big process, where do you even start looking? But when it's broken down into 7 layers, you know exactly where to look — is the server down? Is your WiFi out? Do you even have electricity? Are you being blocked from accessing certain data?
+
+Each layer handles a different part of the process — from creating the request, to sending it, routing it, and physically moving the data.
+
+Now let's go through what this actually looks like in practice.
+
+## Step 1: Typing a URL
+
+When you type a domain name like google.com into your browser, the first thing this does is to check its local cache and see if has seen this address/domain before. If yes, it already knows the IP address and skips ahead. If not, it does a DNS lookup, basically asking a DNS server "what's the IP address for this domain?" and gets something back like 142.250.74.46.
+
+## Step 2: Finding the Right Port
+
+Now the browser has the IP address, it knows which building to go to. But a server can be running multiple services at the same time: a web server, a database, an email server, an internal API, so on and so forth. So it also needs to know which room to go to. That's what a port is, just a number between 0 and 65535 that directs traffic to the right process.
+
+- http:// → uses port 80
+- https:// → uses port 443
+
+The browser handles this automatically. You never have to type :443, it just knows. If you're curious, you can actually see this yourself: open [IMDb.com](https://www.imdb.com/) in your browser, go to DevTools → Network tab, filter by "Doc", and check the Remote Address on the main request. You'll see something like 18.245.35.17:443.
+
+## Step 3: The TCP Handshake
+
+Before anything is sent, the browser and server need to establish a reliable connection. This is where TCP comes in. It starts with a simple three-way handshake:
+
+- Client/Browser asks to connect
+- Server responds
+- Client confirms
+
+Only after that does the actual request gets sent.
+
+If you're on HTTPS, TLS negotiation also happens here — both sides agree on how to encrypt the connection so nothing can be read or tampered with.
+
+## Step 4: The HTTP Request
+
+Now the browser sends an HTTP GET request, essentially a plain text message saying "give me this page."
+
+```
+GET / HTTP/1.1
+Host: google.com
+User-Agent: Mozilla/5.0
+Accept: text/html
+```
+
+The server processes this and sends back a response with a status code (200 OK, 404 Not Found etc.) and the actual content which is usually an HTML document.
+
+## Step 5: Packets — How the Data Actually Travels
+
+The HTML doesn't arrive as one big file. It gets broken into small packets, each potentially taking a different route through the network and arriving out of order. Each packet looks something like this:
+
+```
+IP Packet
+└── IP Header (source IP, destination IP)
+    └── TCP Segment
+        └── TCP Header (port, sequence number)
+            └── Actual data (chunk of HTML)
+```
+
+TCP's job on the other end is to reassemble everything in the right order.
+
+## Step 6: The Browser Receives the HTML
+
+The browser doesn't wait for the whole file before it starts working. As chunks of HTML arrive, it starts processing straight away, which is why you often see a page build itself gradually, structure first, then images and styles filling in after.
+
+---
+
+And that's the full journey — from typing a URL to pixels on the screen.
+
+If you're a developer and some of this was new to you, don't worry — it was for me too. Most of us work with the web every day without ever thinking about what's happening underneath. But once you sit with it and actually break it down layer by layer, it starts to make sense. Each part is solving a specific problem, and they all fit together.
+
+<div className="blog-callout">
+  PS: This is based on my own research and understanding of how the web works.
+  I'd always recommend double checking other resources if you want to go deeper.
+  I wrote this mostly for myself, but if it helps someone else along the way,
+  that's a win. Thanks for reading.
+</div>
