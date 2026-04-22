@@ -22,7 +22,7 @@ $accent: #ffcc00;
 @mixin chip {
     background: linear-gradient(135deg, rgba(14, 97, 108, .04), rgba(146, 224, 235, .03));
     border: 1px solid rgba(14, 97, 108, 0.3);
-    color: #92e0eb;
+    color: var(--chip-color);
     border-radius: 8px;
     padding: 0.2rem 0.8rem;
     font-size: 0.95rem;
@@ -34,7 +34,7 @@ $accent: #ffcc00;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: $text;
+    color: var(--foreground);
     font-family: 'Quicksand', Helvetica, sans-serif;
     @media screen and (max-width: 769px) {
         padding: 3rem 0 4rem;
@@ -44,7 +44,7 @@ $accent: #ffcc00;
         font-size: 2.5rem;
         font-weight: 800;
         margin-bottom: 3.5rem;
-        color: $text;
+        color: var(--foreground);
         text-transform: uppercase;
         letter-spacing: 1px;
         @media screen and (max-width: 999px) {
@@ -158,7 +158,7 @@ $accent: #ffcc00;
                 font-size: 1rem;
                 margin-bottom: 1.2rem;
                 line-height: 26px;
-                color: #e0e0e0;
+                color: var(--foreground);
             }
             .current-job-tech-stack {
                 display: flex;
@@ -192,7 +192,7 @@ $accent: #ffcc00;
             padding: 1.5rem;
             margin-bottom: 2rem;
             border-left: 4px solid $accent;
-            background: rgba($card-bg, 0.3);
+            background: linear-gradient(135deg, rgba(14, 97, 108, .06), rgba(146, 224, 235, .04));
             border-radius: 12px;
             position: relative;
 
