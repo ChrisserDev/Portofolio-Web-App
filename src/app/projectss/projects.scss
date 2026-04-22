@@ -22,7 +22,7 @@ $accent: #ffcc00;
 
 @mixin chip {
     background: linear-gradient(135deg, rgba(14, 97, 108, .08), rgba(146, 224, 235, .06));
-    color: #92e0eb;
+    color: var(--chip-color);
     border: 1px solid rgba(14, 97, 108, 0.3);
     border-radius: 999px;
     padding: 0.35rem 0.9rem;
@@ -32,7 +32,7 @@ $accent: #ffcc00;
 }
 
 .projects-page-container {
-    color: $text;
+    color: var(--foreground);
     padding: 0 0 6rem;
     min-height: 100vh;
     display: flex;
@@ -46,7 +46,7 @@ $accent: #ffcc00;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 1px;
-        color: $text;
+        color: var(--foreground);
     }
 
     .projects-list {
@@ -105,7 +105,7 @@ $accent: #ffcc00;
                             h2 {
                                 font-size: 1.4rem;
                                 font-weight: 700;
-                                color: $text;
+                                color: var(--foreground);
                                 @media screen and (max-width: 999px) {
                                     font-size: 1.2rem;
                                 }
@@ -148,7 +148,8 @@ $accent: #ffcc00;
                             line-height: 26px;
                             min-height: 60px;
                             flex: 1;
-                            color: lighten($muted, 18%);
+                            color: var(--foreground);
+                            opacity: 0.85;
                         }
 
                         .project-tech-stack {

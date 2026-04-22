@@ -15,6 +15,7 @@ $background-nav-glow: 0 0 32px 8px rgba(0, 112, 243, 0.15);
   --foreground: #{$foreground};
   --background-nav: #{$background-nav};
   --foreground-nav: #{$foreground-nav};
+  --chip-color: #0e616c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +24,7 @@ $background-nav-glow: 0 0 32px 8px rgba(0, 112, 243, 0.15);
     --foreground: #{$foreground-dark};
     --background-nav: #{$background-nav-dark};
     --foreground-nav: #{$foreground-nav-dark};
+    --chip-color: #92e0eb;
   }
 }
 

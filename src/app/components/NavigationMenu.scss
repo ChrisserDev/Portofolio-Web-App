@@ -2,8 +2,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: #ffffff;
   background-color: var(--background-nav);
-  background: linear-gradient(0deg, #0e616c 0%, var(--background-nav) 70%);
+  background: linear-gradient(0deg, #0e616c 0%, #1a7a87 70%);
+
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(0deg, #0e616c 0%, var(--background-nav) 70%);
+  }
   padding: 0 5rem;
   height: 100vh;
   gap: 4rem;
@@ -86,7 +91,8 @@
   top: 1rem;
   left: 1rem;
   z-index: 1001;
-  background: var(--background-nav);
+  background: #1a7a87;
+  color: #ffffff;
   border: 2px solid #0e616c;
   border-radius: 8px;
   padding: 0.5rem;
@@ -361,7 +367,9 @@
 }
 
 .browse-projects {
-  background-color: #fff;
+  background-color: transparent;
+  color: var(--foreground);
+  border: 2px solid #ffcc00;
   margin-left: 0;
   &:hover {
     background-color: #ffcc00;
