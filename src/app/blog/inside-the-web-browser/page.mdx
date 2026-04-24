@@ -1,0 +1,168 @@
+---
+title: 'Inside the Web Browser — From Architecture to Rendering Pixels on Screen'
+description: 'A deep dive into how modern browsers are structured and how they turn HTML, CSS, and JavaScript into pixels — covering the multi-process architecture and the full rendering pipeline.'
+date: '2026-04-24'
+image: '/blog_posts/web_broswer.png'
+---
+
+# Inside the Web Browser — From Architecture to Rendering Pixels on Screen
+
+<div className="blog-callout">
+  At its core, a browser takes HTML, CSS, and JavaScript and turns them into what you see on screen. But behind that simple idea is a system that has to manage rendering, running code, and handling resources all at the same time.
+</div>
+
+To understand how it does that, we need to look at what's happening under the hood.
+
+When we think about browsers, a lot is already taken care of for us — memory management, RAM, CPU resources. We don't have to think about any of that, especially in the JavaScript world. But that raises a question: what is the browser actually doing?
+
+When you receive an HTML document from the server, the browser's primary job is to take that document along with any CSS and JavaScript and turn them into pixels on screen.
+
+## Browser Architecture
+
+Modern browsers have a multi-process architecture, meaning each tab runs in its own process. Your operating system (Windows, Mac, Linux) is in charge of separating these, giving each one its own memory and CPU time. That's why when one tab crashes, it doesn't take the whole browser down.
+
+Inside each of these tab processes there are four threads doing different jobs:
+
+- **Main thread** — this is where two critical things happen: rendering, which turns HTML and CSS into something visual, and the event loop, which keeps JavaScript responsive by executing tasks one at a time. Because these two share the same thread, long-running JavaScript can block rendering, and expensive rendering can delay JavaScript execution.
+- **Compositor thread** — handles scrolling and animations independently of the main thread.
+- **Network thread** — fetches resources like API calls and assets without blocking anything else.
+- **Web Workers** — let you run heavy JavaScript off the main thread so the UI stays smooth.
+
+Below all of that, the OS acts as the coordinator. The process manager schedules CPU time and the memory manager allocates RAM. The browser doesn't directly control any of this — it asks the OS, and the OS decides how resources are shared across everything running on your machine.
+
+At the lowest level, everything comes down to hardware. JavaScript runs on the CPU, data is stored in RAM, assets are read from disk, rendering is handled by the GPU, and network requests go through the network card.
+
+<figure className="blog-figure">
+  <img src="/blog_posts/tab_process.png" alt="Browser tab processes diagram" />
+</figure>
+
+<figure className="blog-figure">
+  <img src="/blog_posts/web_broswer.png" alt="Browser Architecture" />
+  <figcaption>Browser Architecture</figcaption>
+</figure>
+
+Now that we have a better understanding of how a browser is structured, let's look at the Web Rendering Pipeline. How do we actually go from an HTML document to pixels on screen?
+
+## 1. HTML Parsing → DOM Tree
+
+When the HTML document comes back from the server, the browser parses it and creates the DOM (Document Object Model). The DOM is a live, in-memory tree representation of the entire HTML document. Think of it like a house blueprint where every node inside represents part of the structure.
+
+You've probably used the DOM a lot already, especially through JavaScript, which uses these nodes to read and modify the page.
+
+```
+div
+├── header
+├── main
+│   ├── section
+│   └── article
+└── footer
+```
+
+The browser uses this tree internally during style calculation, layout, and painting.
+
+## 2. CSS Parsing → CSSOM
+
+Alongside the DOM, the browser parses the CSS into the CSSOM (CSS Object Model). It matches all the rules in the CSSOM to the nodes in the DOM, calculating the computed style for each element — taking care of specificity, inheritance, and the cascade along the way. Once both trees are ready, they combine into the layout tree, also known as the render tree.
+
+## 3. The Layout Tree
+
+<figure className="blog-figure">
+  <img src="/blog_posts/layout_tree.png" alt="Layout Tree diagram" />
+</figure>
+
+The layout tree is where the browser does the box model calculation for every element on the page — figuring out the content size, padding, margin, and border, and based on all of that, where exactly each element sits on the page.
+
+This isn't done in isolation though. The size and position of one element affects the others around it. A parent constrains its children, siblings sit next to each other.
+
+With a flexbox container for example, the browser has to look at the container, all the children inside it, figure out how they share the available space, and calculate positions for all of them together.
+
+At this point the layout tree only knows things like "this box is 20px wide and contains text with a background." The actual drawing happens in the next phase.
+
+## 4. The Paint Phase
+
+During the paint phase, the browser takes the layout tree and turns it into a list of paint instructions. These instructions represent a list of what needs to be drawn on screen and in what order. It takes something like "this box is 20px wide with a background" and translates it into "draw a blue rectangle at these coordinates, then render this text with this font, then draw this border."
+
+Nothing is drawn to the screen yet. It's just a recording of what needs to be painted.
+
+These instructions are executed in a specific order known as the stacking order, which determines what appears behind and what appears on top along the Z-axis. Backgrounds are drawn first, then content and borders, and finally outlines.
+
+<figure className="blog-figure">
+  <img src="/blog_posts/paint_phase.png" alt="The Paint Phase" />
+</figure>
+
+## 5. Rasterization
+
+Once we have those paint instructions, they get rasterized (converted) into bitmaps (actual pixel data) because that's not something the screen can display yet. Screens don't understand instructions — they understand pixels.
+
+During rasterization, those instructions are converted into a grid of pixels where each pixel has a specific colour value. This is handled by the GPU, and the resulting bitmaps get stored in GPU memory and reused during composition.
+
+<figure className="blog-figure">
+  <img src="/blog_posts/rasterization_process.png" alt="Rasterization Process" />
+  <figcaption>Rasterization Process</figcaption>
+</figure>
+
+Two specific cases worth understanding:
+
+- **Image decoding** — images arrive compressed over the network. Before they can be displayed, the browser expands them into a bitmap where every pixel has a colour value. That's why an image takes up much more memory at runtime than its file size suggests.
+- **Text rasterization** — text isn't stored as pixels. Fonts are just shape outlines. When the browser displays text, it converts those outlines into pixels at the required size.
+
+## 6. Composition
+
+Instead of treating the whole page as one flat image, modern browsers split it into layers based on certain conditions — transforms, opacity, video, overflow. Each layer gets rasterized separately and sent to the GPU, where the compositor combines them into the final image.
+
+Because layers are independent, things like scrolling, zooming, and CSS transforms can be handled by the compositor thread without touching the main thread at all.
+
+This is a key performance optimization: instead of re-running layout, paint, and raster, the browser just moves or transforms existing bitmaps on the GPU, which is why these interactions feel smooth.
+
+<figure className="blog-figure">
+  <img src="/blog_posts/composition_phase.png" alt="Composition Phase" />
+</figure>
+
+## 7. The Draw Phase
+
+Now that those paint instructions have been converted into pixels and the GPU has rasterized them into bitmaps, the draw phase takes all those composited layers, breaks the viewport into tiles, combines everything in order, and produces the final bitmap that gets sent to your display.
+
+<figure className="blog-figure">
+  <img src="/blog_posts/draw_phase.png" alt="The Draw Phase" />
+  <figcaption>The Draw Phase</figcaption>
+</figure>
+
+## Re-rendering and Why It's Expensive
+
+The web rendering pipeline doesn't just run once. Every scroll, animation, or DOM update can trigger it again. And because rendering and JavaScript share the same main thread, things can get expensive fast.
+
+### How fast do we have to re-render?
+
+To keep the UI responsive, the browser aims to complete all work for a frame within a fixed time budget. On a typical 60Hz display, that means rendering up to 60 frames per second — roughly 16.6ms per frame.
+
+Within each frame, the browser may:
+
+- Run JavaScript (e.g. event handlers, data updates)
+- Recalculate styles and layout if needed
+- Paint and composite the updated UI
+
+The goal is to keep each frame's work small enough that rendering and JavaScript can both run smoothly without blocking each other.
+
+### Re-render Optimisation
+
+Browsers optimise re-rendering by reusing previously computed data (the DOM, CSSOM, layout results) whenever possible, instead of recalculating everything from scratch.
+
+When something changes, the browser marks only the affected parts of the render tree as needing an update. For example:
+
+- Layout may be marked as needing recalculation
+- Paint may be invalidated
+- Raster may need to be updated
+
+This allows the browser to limit work to only what actually changed, rather than reprocessing the entire page.
+
+However, not all updates are equal. Some changes like layout shifts can trigger broader recalculations, while others like scrolling or transforms can often be handled more efficiently.
+
+Understanding what your changes trigger in the browser is key for performance.
+
+For example, if you change the `width` of an element, the browser has to recalculate the layout, repaint the element, and then update what's shown on screen — which is expensive. But if you change a `transform` (e.g. `translate` or `scale`), the compositor can just move the layer on the GPU without touching the main thread at all — cheap.
+
+Every layer in that chain is solving a specific, well-defined problem. When something breaks or performs badly, this mental model is what lets you reason about where to look, instead of guessing blindly.
+
+<div className="blog-callout">
+  PS: This is based on my own research and understanding of how web browsers and the Web Rendering Pipeline work. I'd always recommend double checking other resources if you want to go deeper. I wrote this mostly for myself, but if it helps someone else along the way, that's a win. Thanks for reading.
+</div>
