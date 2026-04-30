@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getBlogPosts, type BlogPost } from '@/lib/posts';
 
 export default function Blog(): React.JSX.Element {
-  const posts = getBlogPosts();
+  const posts = getBlogPosts().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return (
     <main className='blog-page-container'>
       <h1>
