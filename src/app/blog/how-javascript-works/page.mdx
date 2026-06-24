@@ -2,42 +2,47 @@
 title: 'How JavaScript Works in the Web Browser'
 description: 'Understanding where JavaScript lives and how it actually runs under the hood — from the rendering engine to the JavaScript engine and C++ bindings.'
 date: '2026-04-30'
-image: '/blog_posts/how_javascript_works.png'
+image: 'https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_JavaScript_Works_in_the_Web_Browser/javascript_works_article_cover.webp'
 ---
 
 # How JavaScript Works in the Web Browser
 
 <div className="blog-callout">
-  Before you can really understand JavaScript, it helps to know where it actually lives and how it runs. Not just "it runs in the browser", but what's actually happening under the hood when your code executes
+  Before you can really understand JavaScript, it helps to know where it actually lives and how it runs. Not just "it runs in the browser", but what's actually happening under the hood when your code executes.
 </div>
+
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_JavaScript_Works_in_the_Web_Browser/javascript_works_article_cover.webp" alt="How JavaScript Works in the Web Browser" />
+  <figcaption>How JavaScript Works in the Web Browser</figcaption>
+</figure>
 
 ## How the Browser is Structured
 
-Each browser tab is completely independent, meaning that it gets its own JavaScript environment, main thread, event loop, and isolated V8 instance. That's why if one tab crashes, it doesn't bring down the rest, they don't share anything.
+Each browser tab generally runs in its own process, though in practice the browser may share or reuse processes depending on memory constraints. That's why if one tab crashes, it doesn't bring down the rest.
 
-Inside that process, different components handle specific jobs:
-
-- The Browser/UI layer manages the address bar, tabs, and everything you interact with visually in the browser itself
-- The Network Stack handles HTTP requests, DNS lookups, and internet communication
-- The Rendering Engine parses HTML, CSS, and JavaScript and turns them into visual content on screen
-- Lower-level libraries help draw graphics using the GPU
-- The JavaScript Engine (V8 in Chrome) is what actually executes your JavaScript code
+If you want to understand how the browser is structured around that, I covered it in a previous article.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/how_browers_are_structured.png" alt="How the Browser is Structured" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_JavaScript_Works_in_the_Web_Browser/browser_structure.webp" alt="How the Browser is Structured" />
+  <figcaption>How the Browser is Structured</figcaption>
 </figure>
 
 ## How JavaScript Connects to the Page
 
-The main purpose of JavaScript was to attach to DOM elements and listen to events. We can add JavaScript to a project by adding an inline `<script>` tag directly into the HTML, or we can have an external script file and import that.
+The main purpose of JavaScript was to attach to DOM elements and listen to events. We can add JavaScript to a project by adding an inline &lt;script&gt; tag directly into the HTML, or we can have an external script file and import that.
 
-When the browser encounters an external script tag, Blink (the rendering engine) spots the src attribute and fetches the file from the server. It sends a network request to download app.js, exactly the same way it would download an image or a CSS file. Once it arrives, it hands it off to V8 (the JavaScript Engine) to actually execute it.
+When the browser encounters an external script tag, Blink (the rendering engine) spots the src attribute and fetches the file from the server. It sends a network request to download app.js, the same way it would download an image or a CSS file. Once it arrives, it hands it off to V8 (the JavaScript Engine) to actually execute it.
 
 So Blink is the one doing the fetching whilst V8 is the one doing the running.
 
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_JavaScript_Works_in_the_Web_Browser/javascript_connecting.webp" alt="How JavaScript Connects to the Page" />
+  <figcaption>How JavaScript Connects to the Page</figcaption>
+</figure>
+
 ## JavaScript Execution Pipeline
 
-Here's something a lot of developers don't fully understand — JavaScript is described as an interpreted language, but that's only half the story these days.
+JavaScript is described as an interpreted language, but that's only half the story.
 
 When you write Java, you run a compiler that takes your source code and produces a completely separate .class file that gets run by the Java Virtual Machine. As that file exists on its own, you could delete your original code and the compiled file would still work fine.
 
@@ -45,27 +50,45 @@ JavaScript doesn't work like that and there's no separate output file, no compil
 
 But it's not purely interpreted either. Here's what actually happens inside V8 when your code arrives:
 
-1. If there are no errors, the internal V8 parser builds an Abstract Syntax Tree (AST).
-2. The AST gets handed to Ignition, V8's interpreter, which converts it into bytecode and starts executing it.
-3. If a function gets called frequently, Ignition flags it as hot and promotes it to TurboFan which is V8's optimising compiler which compiles it down to faster machine code on the fly.
+- The internal V8 parser reads your code and builds an Abstract Syntax Tree (AST).
+- The AST gets handed to Ignition, V8's interpreter, which converts it into bytecode and starts executing it.
+- If a function gets called frequently enough, Ignition flags it as hot and promotes it to Sparkplug, V8's baseline compiler, which quickly compiles it to machine code without heavy optimisation.
+- The hottest paths eventually reach TurboFan, V8's fully optimising compiler, which generates the most performant machine code possible.
 
-That last part is what's called Just-In-Time (JIT) compilation. The code starts interpreted and gets compiled where it matters and it's why JavaScript is fast enough to power complex applications despite being a scripting language.
+That last part is what's called Just-In-Time (JIT) compilation. The code starts interpreted and gets compiled where it matters, and it's why JavaScript is fast enough to power complex applications despite being a scripting language.
 
-V8 actually has three levels of output depending on how 'hot' something is:
+V8 actually has four levels of output depending on how 'hot' something is:
 
-- Baseline — quick to produce, runs okay
-- Sparkplug — a faster first pass, sits between Ignition and TurboFan
-- TurboFan — fully optimised machine code for the paths that run constantly
+- Ignition — interprets bytecode, runs everything first
+- Sparkplug — quick baseline compilation, faster than interpreting
+- Maglev — mid-tier optimisation using runtime feedback
+- TurboFan — fully optimised machine code for the hottest paths
 
 Everything ultimately ends up as binary running on your CPU.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/javascript_execution_pipeline.png" alt="JavaScript Execution Pipeline" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_JavaScript_Works_in_the_Web_Browser/js_execution_pipeline.webp" alt="JavaScript Execution Pipeline" />
+  <figcaption>JavaScript Execution Pipeline</figcaption>
 </figure>
 
-## JavaScript is single threaded
+## The Abstract Syntax Tree
 
-Your JavaScript runs on one thread, one thing at a time, in order. There's no parallel execution happening inside your JS code. This sounds like a limitation (and it is), but it's also what makes JavaScript's behaviour predictable.
+When V8 gets your JavaScript code, it's just a string of text. The engine can't run a string, it needs to understand the structure of it first. So it runs a parser that reads through your code and converts it into a tree structure called an Abstract Syntax Tree.
+
+If you write:
+
+```javascript
+const x = 5 + 3;
+```
+
+The parser doesn't see that as a line of text. It sees a variable declaration called x whose value is an addition expression between the number 5 and the number 3.
+
+That structure, the relationships between all those pieces, is the AST. It's a map of your code that the engine can actually work with.
+
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_JavaScript_Works_in_the_Web_Browser/abstract_syntax_tree.webp" alt="The Abstract Syntax Tree" />
+  <figcaption>The Abstract Syntax Tree</figcaption>
+</figure>
 
 ## What are C++ bindings?
 
@@ -82,8 +105,19 @@ So you're writing JavaScript, but under the hood it's constantly handing off the
 A simple way to think about it — you speak JavaScript, the computer speaks machine code, and C++ is the translator sitting in the middle doing the heavy lifting.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/c++_bindings.png" alt="C++ bindings" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_JavaScript_Works_in_the_Web_Browser/abstract_syntax_tree.webp" alt="C++ Bindings" />
+  <figcaption>C++ Bindings</figcaption>
 </figure>
+
+## JavaScript is single threaded
+
+JavaScript is single-threaded, meaning that only one thing runs at a time, in order. That's the call stack. Every function call gets pushed onto it, executed, and popped off, nothing else runs while that's happening.
+
+The problem is that some things take time, such as a network request, a timer, or reading a file. If JavaScript just waited for those to finish, the whole page would freeze.
+
+That's where the event loop comes in. When you call something like setTimeout or fetch, the browser handles it in the background. Your JavaScript keeps running. When the background task finishes, the callback gets added to the task queue. The event loop watches the call stack, and the moment it's empty, it picks the next task from the queue and pushes it onto the stack to run.
+
+So JavaScript stays single-threaded, but it never actually sits and waits, it just comes back to things when they're ready.
 
 ## The JavaScript Execution Environment
 
@@ -91,60 +125,26 @@ When a tab opens, V8 creates a JavaScript execution environment. This is what gi
 
 You get three things injected into your global scope:
 
-1. The document object — how you talk to the DOM. When you call document.getElementById(), it goes through a C++ binding, reads the DOM data structure inside the tab process, and hands the result back to you.
-2. The Browser Object Model (BOM) — how you talk to the browser itself. Cookies, local storage, navigation. Navigator and History live here.
-3. JavaScript built-ins — everything the language ships with. Array, Object, Date, Promise, fetch() and so on.
+- The document object — how you talk to the DOM. When you call document.getElementById(), it goes through a C++ binding, reads the DOM data structure inside the tab process, and hands the result back to you.
+- The Browser Object Model (BOM) — how you talk to the browser itself. Navigation, history, screen information. Navigator and History live here, as do Web APIs like fetch() which are provided by the browser, not the JavaScript language itself.
+- JavaScript built-ins — everything the language ships with. Array, Object, Date, Promise, and so on. These are defined in the ECMAScript specification, meaning they exist in every JavaScript environment, not just the browser.
 
 All of this lands on the window object, which is the global object in the browser. That's why you can write document instead of window.document — it's all sitting on window.
 
-The call stack is what actually executes your code. Every function call gets pushed onto it and run. The event loop on the other hand, decides what and when things get pushed to the call stack.
+The call stack is what actually executes your code. Every function call gets pushed onto it and run. The event loop, on the other hand, decides what and when things get pushed to the call stack.
 
-The event loop continuously checks if the call stack is empty, and if it is, it pulls the next task waiting in the queue and pushes it onto the stack. That's how JavaScript handles things like setTimeout or fetch callbacks without blocking the execution context, but that's a deeper topic for another article.
-
-<figure className="blog-figure">
-  <img src="/blog_posts/javascript_execution_environment.png" alt="The JavaScript Execution Environment" />
-</figure>
-
-## The Abstract Syntax Tree and Scope
-
-When V8 gets your JavaScript code, it's just a string of text. The engine can't run a string, it needs to understand the structure of it first. So it runs a parser that reads through your code and converts it into a tree structure called an Abstract Syntax Tree.
-
-If you write:
-
-```javascript
-const x = 5 + 3;
-```
-
-The parser doesn't see that as a line of text. It sees a variable declaration called x whose value is an addition expression between the number 5 and the number 3.
-
-That structure, the relationships between all those pieces, is the AST. It's a map of your code that the engine can actually work with.
+The event loop continuously checks if the call stack is empty, and if it is, it pulls the next task waiting in the queue and pushes it onto the stack. That's how JavaScript handles things like setTimeout or fetch callbacks without blocking the main thread, but that's a deeper topic for another article.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/ast_javascript.png" alt="The AST" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_JavaScript_Works_in_the_Web_Browser/js_execution_environment.webp" alt="JavaScript Execution Environment" />
+  <figcaption>JavaScript Execution Environment</figcaption>
 </figure>
 
-Scope defines where a variable can be accessed from. When you declare a variable inside a function, it only exists inside that function, you can't reach it from outside. When you declare it at the top level, it's available everywhere.
-
-Scope gets built at the same time as the AST, before your code runs. The engine reads through your code and figures out exactly which variables belong to which parts of the program. This is called lexical scoping, meaning scope is determined by where you write your code, not by when or how it runs.
-
-```javascript
-const name = 'Alice'; // global scope — accessible anywhere
-
-function greet() {
-  const message = 'Hello'; // function scope — only accessible inside greet
-  console.log(message + ' ' + name); // can access both
-}
-
-greet(); // "Hello Alice"
-console.log(message); // ReferenceError — message doesn't exist out here
-```
-
-Each function creates its own scope. If a variable isn't found in the current scope, JavaScript looks in the parent scope, then the parent's parent, all the way up to the global scope. That chain is called the scope chain.
-
-Most developers write JavaScript every day without thinking about any of this. But knowing that V8 is parsing your code into a tree, that scope is figured out before anything runs, that every console.log is quietly handing off to C++ under the hood changes how you think about the language.
-
-You don't need to memorise all of it, yet having the mental model makes you a better debugger, a better developer, and honestly makes JavaScript a lot less mysterious.
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_JavaScript_Works_in_the_Web_Browser/how_all_connects.webp" alt="JavaScript Execution Environment" />
+  <figcaption>JavaScript Execution Environment</figcaption>
+</figure>
 
 <div className="blog-callout">
-  PS: This is based on my own research and understanding of how JavaScript works in the Web Browser. I'd always recommend double checking other resources if you want to go deeper. I wrote this mostly for myself, but if it helps someone else along the way, that's a win. Thanks for reading.
+  PS: This is based on my own research and understanding of how JavaScript works in the Web Browser. I'd always recommend double-checking other resources if you want to go deeper. I wrote this mostly for myself, but if it helps someone else along the way, that's a win. Thanks for reading.
 </div>

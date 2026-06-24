@@ -2,37 +2,39 @@
 title: 'Webpack, Vite, Babel, ESLint and More — The Tools Every JavaScript Developer Should Understand'
 description: 'A concise guide to the build tools every modern JavaScript developer should know, from bundlers and transpilers to linting and dev workflow automation.'
 date: '2026-05-06'
-image: '/blog_posts/frontend_tools_article_cover.png'
+image: 'https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/frontend_tools_article_cover.webp'
 ---
 
 # Webpack, Vite, Babel, ESLint and More — The Tools Every JavaScript Developer Should Understand
 
-Every modern JavaScript project has a build pipeline running behind the scenes. You write TypeScript, JSX, SCSS but the browser understands none of it. Tools like Webpack, Vite, Babel, ESLint and more exist to bridge that gap, turning your code into something that browsers can actually run. This article covers what they do, why they exist, and how they fit together.
+<div className="blog-callout">
+  Every modern JavaScript project has a build pipeline running behind the scenes. You write TypeScript, JSX and SCSS but the browser understands none of it. This article breaks down how module bundlers like Webpack and Vite take your source code and turn it into something browsers can actually run.
+</div>
 
 <figure className="blog-figure">
-  <img
-    src="/blog_posts/frontend_tools_article_cover.png"
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/frontend_tools_article_cover.webp"
     alt="Build tools for modern JavaScript"
   />
+  <figcaption>Article Cover Image</figcaption>
 </figure>
 
 ## Module Bundlers
 
 A module bundler takes all your JavaScript files and combines them into one single file (the bundle) to be shipped to the browser. One request, one file, everything in the right order.
 
-Webpack can also handle SCSS, images, fonts, JSON, running each file type through the right transformer before bundling everything together.
+Webpack can also handle SCSS, images, fonts, JSON and running each file type through the right transformer before bundling everything together.
 
 ## The Problem Module Bundlers Solve
 
-As JavaScript applications grew in complexity, the way the web handled JavaScript simply didn’t scale. There were several problems happening at the same time.
+As JavaScript applications grew in complexity, the way the web handled JavaScript simply didn't scale and there were several problems happening at the same time.
 
-The browser had no native module system, which meant that it couldn’t just import code from another file. Therefore, developers either loaded multiple files via separate `<script>` tags, each one making its own network request, or they dumped everything into one giant file.
+The browser had no native module system, which meant that it couldn't just import code from another file. Therefore, developers either loaded multiple files via separate &lt;script&gt; tags, each one making its own network request, or they dumped everything into one big file.
 
-Multiple script tags were slow and order-dependent. Let’s say if file B depended on something in file A and A hadn’t loaded yet, everything broke. One giant file solved the request problem but created a maintenance nightmare, imagine thousands of lines with no structure and no separation of concerns.
+Multiple script tags were slow and order-dependent. If file B depended on something in file A and A hadn't loaded yet, everything broke. One big file solved the request problem but created a maintenance nightmare.
 
 Furthermore, that meant that everything lived in the global scope. Without a module system, every variable and function you declared was global which quickly became a problem as things would clash and overwrite each other with no warning across multiple files.
 
-You couldn’t aslo use npm packages in the browser. Node.js had CommonJS require() for importing modules, but the browser had nothing equivalent. If you wanted to use a library, you’d typically download it manually or load it from a CDN and hope it didn’t conflict with anything else you had in your code.
+You couldn't also use npm packages in the browser. Node.js had CommonJS require() for importing modules, but the browser had nothing equivalent. If you wanted to use a library, you'd typically download it manually or load it from a CDN and hope it didn't conflict with anything else you had in your code.
 
 There was no transformation pipeline. If you wanted to write SCSS, TypeScript, or JSX, developers had to manually compile SCSS to CSS, compile TypeScript to JavaScript, compile JSX to JavaScript and manage all of that before anything could run in the browser.
 
@@ -42,19 +44,30 @@ There are plenty of module bundlers out there, such as Webpack, Vite, Parcel, Ro
 
 ## How Webpack Works
 
-Webpack starts from an entry point which is the root of your application, which is usually your main index.js file. Webpack uses that file to begin building its understanding of your codebase.
+Webpack starts from an entry point, usually your main index.js and recursively follows every import it finds until it has mapped out every file your application depends on. That map is the dependency graph.
 
-From there it follows every import statement it finds, then follows the imports inside those files, and so on recursively until it has mapped out every single file your application depends on, directly or indirectly. That map is called the Dependency Graph. Simply put, this is an internal tree-like structure created by module bundlers based on the imports and exports in your code.
+Each file then gets passed through the relevant loaders, transforming .jsx to JavaScript, .scss to CSS, .ts to JavaScript and so on. Once every file has been transformed, the plugins run on the full bundle, handling tree shaking, minification, code splitting and source maps. The final output lands in a dist folder, shipped to the browser as a single request.
+
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/webpack_build_pipeline.webp"
+    alt="Webpack full pipeline"
+  />
+  <figcaption>Webpack Build Pipeline</figcaption>
+</figure>
+
+## Dependency Graph
+
+As we’ve mentioned above, a Dependency Graph is an internal graph structure Webpack builds from your import and export statements. Starting from the entry point, it recursively maps out every file your application depends on, directly or indirectly.
 
 Anything not in that graph doesn’t get included in the bundle. So if you installed a library but never imported it anywhere, Webpack won’t include it. This is one of the benefits of Webpack, as it keeps the bundle lean and only ships what your application actually uses.
 
-Once the graph is built, Webpack seals it together, runs any plugins, and produces the final output which is typically a dist folder containing your bundled files ready to be deployed.
+The graph determines two things — what gets included in the bundle, and in what order. If module A depends on module B, webpack knows B needs to be processed first. It uses this ordering to ensure nothing breaks when the bundle runs in the browser.
 
 <figure className="blog-figure">
-  <img
-    src="/blog_posts/webpack_full_pipeline.png"
-    alt="Webpack full pipeline"
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/dependency_graph.webp"
+    alt="Dependency Graph"
   />
+  <figcaption>Dependency Graph</figcaption>
 </figure>
 
 ## Loaders
@@ -65,13 +78,15 @@ Think of a loader as just a transformer. You configure Webpack to say “wheneve
 
 For example:
 
-.scss files → run through the SASS loader, outputs plain CSS
-.jsx / .ts files → run through Babel loader, outputs plain JavaScript
-.png files → run through file loader, outputs a URL reference
+- .scss files → run through the SASS loader, outputs plain CSS
+- .jsx / .ts files → run through Babel loader, outputs plain JavaScript
+- .png files → run through file loader, outputs a URL reference
+
 Loaders only transform a single file at a time. If you need to do something more complex like bundle optimisation or asset management, that’s where plugins come in. Plugins have access to the entire compilation lifecycle, not just individual files.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/webpack_loaders.png" alt="Webpack loaders" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/webpack_loaders.webp" alt="Webpack loaders" />
+  <figcaption>Loaders</figcaption>
 </figure>
 
 ## Babel
@@ -80,14 +95,17 @@ Babel is a code transpiler and its job is to take JavaScript the browser doesn�
 
 Two main things it handles:
 
-JSX — browsers have no idea what `<div>` means inside a JavaScript file. That’s React’s JSX syntax, and it doesn’t exist in the JavaScript specification. Babel converts it into React.createElement(‘div’, …) which is plain JavaScript the browser can execute.
+JSX — browsers have no idea what \<div> means inside a JavaScript file. That’s React’s JSX syntax, and it doesn’t exist in the JavaScript specification.
 
-Therefore, you write the latest JavaScript syntax and Babel rewrites it into something every browser can understand. For example, if you’re using optional chaining ?. or nullish coalescing ?? and some of your users are on older browsers that don’t support them, Babel rewrites those into equivalent code that does work. That’s the polyfilling side.
+In the old JSX transform, Babel converted JSX into React.createElement('div', ...) calls. Since React 17, the new transform instead imports functions from react/jsx-runtime automatically, meaning you no longer need to import React at the top of every file just to use JSX.
+
+Therefore, you write the latest JavaScript syntax and Babel rewrites it into something every browser can understand. For example, if you’re using optional chaining ?. or nullish coalescing ?? and some of your users are on older browsers that don't support them, Babel rewrites those into equivalent code that does work. That's the syntax transform side, Babel rewrites syntax the browser doesn't understand. Polyfills are different: they provide fallback implementations for missing runtime features like Promise or Array.from. Babel handles both, but they're separate concerns.
 
 Babel is just one of the tools Webpack uses as a loader. They work together but are completely separate tools, you can use Babel without Webpack and Webpack without Babel.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/babel_transpiler.png" alt="Babel transpiler" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/babel_transpiler.webp" />
+  <figcaption>Babel</figcaption>
 </figure>
 
 ## Tree Shaking
@@ -99,17 +117,8 @@ For example, if you import one utility function from a library that exports 50, 
 This only works with ES module import statements. With CommonJS require(), Webpack can’t statically analyse what’s being used because require() can be dynamic and the module name could be a variable. ES module imports are always static, which means Webpack can analyse them at build time and make safe decisions about what to remove.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/tree_shaking.png" alt="Tree shaking" />
-</figure>
-
-## Dependency Graph
-
-As we’ve mentioned above, a Dependency Graph is an internal tree-like structure Webpack builds from your import and export statements. Starting from the entry point, it recursively maps out every file your application depends on, directly or indirectly.
-
-The graph determines two things — what gets included in the bundle, and in what order. If module A depends on module B, webpack knows B needs to be processed first. It uses this ordering to ensure nothing breaks when the bundle runs in the browser.
-
-<figure className="blog-figure">
-  <img src="/blog_posts/dependency_graph.png" alt="Dependency graph" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/tree_shaking.webp" alt="Tree shaking" />
+  <figcaption>Tree Shaking</figcaption>
 </figure>
 
 ## Source Maps
@@ -119,17 +128,19 @@ When Webpack bundles your code, what runs in the browser looks nothing like what
 Source maps solve this by providing a mapping between the bundled code running in the browser and your original source files. When something breaks and your browser throws an error, instead of pointing you to line 1 of a minified bundle, DevTools uses the source map to show you the exact line in your original file where the problem is. Essential for debugging in production.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/source_maps.png" alt="Source maps" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/source_maps.webp" alt="Source maps" />
+  <figcaption>Source Maps</figcaption>
 </figure>
 
 ## Polyfills
 
 A polyfill is a piece of code that replaces a missing language feature in browsers that don’t support it yet. If you use a modern JavaScript method and a user is on an older browser that doesn’t support it, a polyfill provides a fallback implementation so it still works.
 
-Babel handles polyfilling automatically based on what browsers you’re targeting. You tell it “support these browsers” and it figures out which features are missing and adds the necessary polyfills.
+Babel handles polyfilling through @babel/preset-env. You tell it which browsers to support, and it figures out which syntax transforms are needed automatically. For runtime polyfills like Promise or Array.from, you also need to configure useBuiltIns and install core-js — Babel uses that to inject only the polyfills your target browsers are actually missing.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/polyfills.png" alt="Polyfills" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/polyfills.webp" alt="Polyfills" />
+  <figcaption>Polyfills</figcaption>
 </figure>
 
 ## Vite
@@ -140,82 +151,23 @@ Webpack bundles your entire application upfront before you can start working. On
 
 Vite skips bundling entirely during development and it leverages the browser’s native ES module support. This is done by serving your files directly to the browser as individual modules and lets the browser handle the imports itself. When you change a file, only that file needs to be updated, not the whole bundle. The result is near-instant startup and updates that reflect in the browser in milliseconds regardless of how large your application is.
 
-For production, Vite does bundle everything properly using Rollup under the hood, because sending hundreds of individual module requests to the browser in production would be slow. So the end result is the same, the developer experience getting there is dramatically faster.
+For production, Vite does bundle everything properly using Rollup under the hood, because sending hundreds of individual module requests to the browser in production would be slow. So the end result is the same — the developer experience getting there is dramatically faster.
 
 Configuration is also significantly simpler than Webpack out of the box. Webpack is notoriously complex to configure correctly, whereas Vite works with sensible defaults for most modern projects.
 
 <figure className="blog-figure">
-  <img src="/blog_posts/webpack_vs_vite.png" alt="Webpack vs Vite" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/webpack_vite_dev.webp" alt="Webpack vs Vite" />
+  <figcaption>Webpack vs Vite — Development</figcaption>
 </figure>
 
-## ESLint
-
-ESLint is a code linter and its job is to catch problems in your code before they reach production. Things like unused variables, potential bugs, or patterns that are considered bad practice.
-
-Under the hood, ESLint parses your JavaScript into an AST (Abstract Syntax Tree) which is a structured tree representation of your code. It then walks through every node in that tree and checks it against your configured rules. A rule like “no unused variables” just looks for every variable declaration in the tree and checks whether it’s referenced anywhere else. If not, it flags it.
-
-You configure ESLint in an .eslintrc file at the root of your project. You can turn rules on or off, set them to warn or throw errors, and extend shared configs like Airbnb’s which gives you a full opinionated ruleset out of the box.
-
-```json
-{
-  "rules": {
-    "no-unused-vars": "error",
-    "no-console": "warn"
-  },
-  "extends": ["airbnb"]
-}
-```
-
-Run eslint — init and it generates this file for you based on a few questions about your project.
-
-## Prettier
-
-Prettier handles formatting such as indentation, quote style, semicolons, line length. It doesn’t care about code correctness, only about how the code looks.
-
-Under the hood it works similarly to ESLint as it parses your code into an AST, but then throws away your original formatting entirely and reprints the code from scratch according to its own rules. That’s why Prettier is so consistent, as it never tries to fix your formatting, it just reprints everything fresh.
-
-You configure it in a .prettierrc file:
-
-```json
-{
-  "singleQuote": true,
-  "tabWidth": 2,
-  "semi": false
-}
-```
-
-ESLint vs Prettier — they can conflict if both try to enforce formatting rules. The fix is eslint-prettier-config, which tells ESLint to back off on formatting and let Prettier own that entirely.
-
-## Git Hooks
-
-A Git hook is a script that runs automatically at certain points in your git workflow. The most common one is pre-commit and it runs before your commit gets saved. If the script fails, the commit is blocked.
-
-The most popular tool for setting these up in JavaScript projects is Husky. You configure it in your package.json or a .husky folder:
-
-```json
-{
-  "husky": {
-    "hooks": {
-      "pre-commit": "eslint . && prettier - check ."
-    }
-  }
-}
-```
-
-So every time you try to commit, Husky runs ESLint and Prettier. If either finds an issue, the commit is rejected until you fix it. Think of it like a bouncer where broken code doesn’t get through.
-
-Run npx husky init and it sets everything up automatically.
-
-## Git Hooks vs GitHub Actions
-
-They do the same job but at different points in your workflow.
-
-Git hooks run on your machine before the code leaves your computer. You never push broken code in the first place. GitHub Actions runs on GitHub’s servers after you’ve already pushed, the feedback loop is slower.
-
-Most teams use both. Git hooks as the first line of defence, catching obvious issues locally. GitHub Actions as the safety net, catching anything that slipped through and running more expensive checks like tests that you wouldn’t want slowing down every local commit.
+<figure className="blog-figure">
+  <img
+    src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/JS_Front-End_Tools/webpack_vs_vite.webp"
+    alt="Webpack vs Vite comparison"
+  />
+  <figcaption>Webpack vs Vite — Production</figcaption>
+</figure>
 
 None of these tools exist to make your life harder. They each solve one specific problem, and together they form a pipeline that just quietly keeps your codebase in good shape.
 
-<div className="blog-callout">
-  PS: This is based on my own research and understanding of how Modern Frontend Tools work. I’d always recommend double checking other resources if you want to go deeper. I wrote this mostly for myself, but if it helps someone else along the way, that’s a win. Thanks for reading.
-</div>
+> PS: This is based on my own research and understanding of how Modern Frontend Tools work. I’d always recommend double checking other resources if you want to go deeper. I wrote this mostly for myself, but if it helps someone else along the way, that’s a win. Thanks for reading.

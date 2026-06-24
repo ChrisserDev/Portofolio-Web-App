@@ -1,0 +1,123 @@
+---
+title: 'Code Quality Tools — ESLint, Prettier, Git hooks, Husky, GitHub Actions.'
+description: 'A concise guide to the code quality tools every JavaScript developer should know, from linting to dev workflow automation.'
+date: '2026-06-02'
+image: 'https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/Code_Quality_Tools/code_quality_tools_article_cover.webp'
+---
+
+# Code Quality Tools — ESLint, Prettier, Git hooks, Husky, GitHub Actions.
+
+<div className="blog-callout">
+  Writing code that works is one thing, but writing code that stays maintainable as a team and a codebase grow is another. This article covers the tools that keep your JavaScript clean, consistent and production-ready .
+</div>
+
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/Code_Quality_Tools/code_quality_tools_article_cover.webp"
+    alt="Build tools for modern JavaScript"
+  />
+  <figcaption>Article Cover Image</figcaption>
+</figure>
+
+## Code Quality Tools
+A code quality tool automates the work of keeping your codebase clean, consistent and production-ready. Instead of relying on every developer to manually spot bugs, agree on formatting, or remember to run checks before pushing, the tools do it for you, automatically, at the right point in the workflow.
+
+## The Problem Code Quality Tools Solve
+
+As JavaScript codebases grew and more developers started working on them, the same problems kept appearing.
+
+There was no consistent style and every developer had their own preferences, such as tabs or spaces, single or double quotes, semicolons or not.
+
+Bugs slipped through that should have been caught earlier. Unused variables, unreachable code, calling functions that don’t exist, these are the kinds of mistakes a machine can catch instantly.
+
+Bad code made it to production. Without any automated gates in the workflow, a developer could write broken or unformatted code, commit it, push it and have it deployed before anyone noticed.
+
+Code quality tools solved all of this. You configure them once and from that point they run automatically, ESLint catches problems in your code before they’re committed, Prettier enforces formatting so nobody argues about it, Git hooks block bad code from leaving your machine, and GitHub Actions catches anything that slips through as a final safety net.
+
+There are plenty of tools in this space, but we’ll focus on the ones you’ll encounter the most: ESLint, Prettier, Husky and GitHub Actions.
+
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/Code_Quality_Tools/code_quality_tools.webp"
+    alt="Code Quality Tools"
+  />
+  <figcaption>Code Quality Tools</figcaption>
+</figure>
+
+## ESLint
+
+ESLint is a code linter and its job is to catch problems in your code before they reach production. Things like unused variables, potential bugs, or patterns that are considered bad practice.
+
+Under the hood, ESLint parses your JavaScript into an AST (Abstract Syntax Tree) which is a structured tree representation of your code. It then walks through every node in that tree and checks it against your configured rules. A rule like “no unused variables” just looks for every variable declaration in the tree and checks whether it’s referenced anywhere else. If not, it flags it.
+
+You configure ESLint in an eslint.config.js file at the root of your project. This is the flat config format introduced in ESLint v9, which replaced the legacy .eslintrc format. You can turn rules on or off, set them to warn or throw errors, and extend shared configs like Airbnb’s which gives you a full opinionated ruleset out of the box.
+
+```
+import js from "@eslint/js";
+import airbnb from "eslint-config-airbnb";
+```
+```
+export default [
+  js.configs.recommended,
+  {
+    rules: {
+      "no-unused-vars": "error",
+      "no-console": "warn"
+    }
+  }
+];
+```
+
+Run npm init @eslint/config and it generates this file for you.
+
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/Code_Quality_Tools/es_lint_internals.webp" />
+  <figcaption>ES Lint Internals</figcaption>
+</figure>
+
+## Prettier
+Prettier handles formatting such as indentation, quote style, semicolons, line length. It doesn’t care about code correctness, only about how the code looks.
+
+Under the hood it works similarly to ESLint as it parses your code into an AST, but then throws away your original formatting entirely and reprints the code from scratch according to its own rules. That’s why Prettier is so consistent, as it never tries to fix your formatting, it just reprints everything fresh.
+
+You configure it in a .prettierrc file:
+
+```
+{
+ "singleQuote": true,
+ "tabWidth": 2,
+ "semi": false
+}
+```
+
+ESLint vs Prettier — they can conflict if both try to enforce formatting rules. The fix is eslint-config-prettier, which tells ESLint to back off on formatting and let Prettier own that entirely.
+
+Press enter or click to view image in full size
+
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/Code_Quality_Tools/prettier_internals.webp" />
+  <figcaption>Prettier Internals</figcaption>
+</figure>
+
+## Git Hooks
+A Git hook is a script that runs automatically at certain points in your git workflow. The most common one is pre-commit and it runs before your commit gets saved. If the script fails, the commit is blocked.
+
+The most popular tool for setting these up in JavaScript projects is Husky. When you run npx husky init, it creates a .husky folder at the root of your project with a pre-commit file inside. That file is where your hook commands live:
+
+```
+# .husky/pre-commit
+eslint . && prettier --check .
+```
+So every time you try to commit, Husky runs ESLint and Prettier. If either finds an issue, the commit is rejected until you fix it. Think of it like a bouncer where broken code doesn’t get through.
+
+Run npx husky init and it sets everything up automatically.
+
+## Git Hooks vs GitHub Actions
+
+They do the same job but at different points in the workflow.
+
+Git hooks run on your machine before the code leaves your computer. You never push broken code in the first place. GitHub Actions runs on GitHub’s servers after you’ve already pushed, the feedback loop is slower.
+
+Most teams use both. Git hooks as the first line of defence, catching obvious issues locally. GitHub Actions as the safety net, catching anything that slipped through and running more expensive checks like tests that you wouldn’t want slowing down every local commit.
+
+None of these tools exist to make your life harder. They each solve one specific problem, and together they form a pipeline that just quietly keeps your codebase in good shape.
+
+> PS: This is based on my own research and understanding of how Modern Frontend Tools work. I’d always recommend double checking other resources if you want to go deeper. I wrote this mostly for myself, but if it helps someone else along the way, that’s a win. Thanks for reading.
