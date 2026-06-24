@@ -25,7 +25,7 @@ export default function Home() {
           <a className='resume-link' href="https://drive.google.com/file/d/1xi7oOYXSV-Il3fXTJfohOmn1Nvmni1aL/view?usp=sharing" target='_blank' rel="noopener noreferrer" aria-label='Link to Cristian Resume.'>Resume</a>
         </div>
         <div className='portrait-image-wrapper'>
-          <Image className='portrait-image' src="/portrait.png" width={400} height={400} alt="Image of Cristian Serban"/>
+          <Image className='portrait-image' src="/portrait.png" width={300} height={300} alt="Image of Cristian Serban"/>
         </div>
       </div>
     </main>

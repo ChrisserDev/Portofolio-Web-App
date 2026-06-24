@@ -1,5 +1,6 @@
 import './blog.scss';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getBlogPosts, type BlogPost } from '@/lib/posts';
 
 export default function Blog(): React.JSX.Element {
@@ -19,9 +20,14 @@ export default function Blog(): React.JSX.Element {
         {posts.map((post: BlogPost) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
             <article>
-              <h3>{post.title}</h3>
-              <p>{post.description}</p>
-              <time>{post.date}</time>
+              {post.image && (
+                <Image src={post.image} className={'blog-post-thumbnail'} alt={post.title} width={200} height={200} />
+              )}
+              <section>
+                <h3>{post.title}</h3>
+                <p>{post.description}</p>
+                <time>{post.date}</time>
+              </section>
             </article>
           </Link>
         ))}
