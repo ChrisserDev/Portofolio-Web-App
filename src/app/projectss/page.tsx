@@ -13,7 +13,7 @@ export default async function Projects(): Promise<JSX.Element> {
 
   return (
     <main className='projects-page-container'>
-      <h1>Projects</h1>
+      <h1><span className='accent-underline'>Projects</span></h1>
       <ul className='projects-list'>
         {projectEntries.map((project) => (
           <li key={project.id} className='project-card'>

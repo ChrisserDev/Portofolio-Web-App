@@ -4,7 +4,7 @@ import './skills.scss';
 export default function SkillsPage(): React.JSX.Element {
   return (
     <main className='skills-page-container'>
-      <h1>Skills</h1>
+      <h1><span className='accent-underline'>Skills</span></h1>
       <ul>
         <li>
           <Image src={'/skills_logos/javascript_logo.png'} alt='JavaScript Logo' width={90} height={70} title='JavaScript — programming language of the web' />
