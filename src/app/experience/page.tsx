@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function ExperiencePage(): React.JSX.Element {
   return (
     <main className='experience-page-container'>
-      <h1>Work Experience</h1>
+      <h1><span className='accent-underline'>Work Experience</span></h1>
       <div className='current-job-section'>
         <div className='current-job-title'>
           <a href="https://www.linkedin.com/company/industrial-tool-supplies-london-limited/" target='_blank' rel='noopener noreferrer'>
@@ -12,8 +12,8 @@ export default function ExperiencePage(): React.JSX.Element {
           </a>
         </div>
         <div className='current-job-header'>
-          <h2>Software Developer</h2>
-          <span>04/2024 - Present</span>
+          <h2>Full Stack Developer</h2>
+          <span>03/2024 - Present</span>
         </div>
         <div className='current-job-description'>
           <p>

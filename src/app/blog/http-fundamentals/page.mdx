@@ -1,0 +1,290 @@
+---
+title: 'HTTP Fundamentals'
+description: 'How a request and response are actually structured, the methods and status codes you’ll use constantly, the headers worth knowing, and why HTTPS isn’t optional.'
+date: '2026-08-12'
+image: 'https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/HTTP_Fundamentals/http_fundamentals_cover.webp'
+---
+
+# HTTP Fundamentals
+
+<div className="blog-callout">
+  Before you can understand how backends work, you need to understand HTTP — how a request and response are actually structured, the methods and status codes you’ll use constantly, the headers worth knowing, and why HTTPS isn’t optional anymore.
+</div>
+
+<figure className="blog-figure">
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/HTTP_Fundamentals/http_fundamentals_cover.webp" alt="HTTP Fundamentals" />
+</figure>
+
+## Anatomy of a Request and Response
+
+Every HTTP interaction follows the same pattern, a request from the client and a response from the server. Both have the same two parts.
+
+- **Headers** are the metadata. Things like what format the data is in, whether it’s compressed, how long the browser should cache it. You don’t write these by hand most of the time, the browser and whatever framework you’re using handle them automatically.
+- **Body** is the actual data. It is important to note that not every request needs one. If you’re just fetching a user (GET request), you don’t need to send anything, the URL tells the server what you want. But if you’re creating a user (POST request), you need to send the data somewhere, and that’s what the body is for.
+
+## HTTP Methods
+
+HTTP methods describe what you want to do with a resource. There are several but these are the ones you’ll use constantly.
+
+### GET
+
+Read a resource. Fetching a list of users, loading a page, getting a product by ID. GET requests should never modify anything on the server.
+
+```javascript
+// CLIENT
+const response = await fetch('https://api.example.com/users/42');
+const user = await response.json();
+
+// SERVER (Express)
+app.get('/users/:id', (req, res) => {
+  const { id } = req.params;
+  // fetch from DB…
+  res.json({ id, name: 'Alice', email: 'alice@example.com' });
+});
+```
+
+### POST
+
+Create a new resource. Submitting a form, creating a new user, placing an order. The data you’re creating goes in the request body.
+
+```javascript
+// CLIENT
+const response = await fetch('https://api.example.com/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Alice', email: 'alice@example.com' }),
+});
+const newUser = await response.json();
+
+// SERVER
+app.post('/users', (req, res) => {
+  const { name, email } = req.body;
+  // insert into DB…
+  res.status(201).json({ id: 99, name, email });
+});
+```
+
+### PUT
+
+Replace a resource entirely. You send the complete updated version of the object. This is important, if you only send part of the object, the missing fields get wiped. PUT replaces the whole thing.
+
+```javascript
+// CLIENT
+const response = await fetch('https://api.example.com/users/42', {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Alice Smith', email: 'alice@example.com', role: 'admin' }),
+});
+const updatedUser = await response.json();
+
+// SERVER
+app.put('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, email, role } = req.body; // expects the full object
+  // overwrite entire record in DB…
+  res.json({ id, name, email, role });
+});
+```
+
+### PATCH
+
+Update part of a resource. You only send the fields you want to change, everything else stays the same on the server.
+
+```javascript
+// CLIENT
+const response = await fetch('https://api.example.com/users/42', {
+  method: 'PATCH',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Alice Smith' }), // only what's changing
+});
+const patchedUser = await response.json();
+
+// SERVER
+app.patch('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const fields = req.body; // merge these into the existing record
+  // update only changed fields in DB…
+  res.json({ id, ...fields });
+});
+```
+
+### DELETE
+
+Remove a resource.
+
+```javascript
+// CLIENT
+const response = await fetch('https://api.example.com/users/42', {
+  method: 'DELETE',
+});
+if (response.status === 204) console.log('User deleted');
+
+// SERVER
+app.delete('/users/:id', (req, res) => {
+  const { id } = req.params;
+  // delete from DB…
+  res.sendStatus(204);
+});
+```
+
+## Status Codes
+
+Every HTTP response comes with a status code that tells you what happened with the request. They fall into five ranges and knowing these ranges means you can diagnose a failed request instantly.
+
+**100–199 — Informational.** The server is acknowledging the request before sending the full response.
+
+**200–299 — Success.** The request worked.
+
+- `200 OK` — the standard success response for GET, PUT, PATCH
+- `201 Created` — a resource was successfully created, typically returned after a POST
+- `204 No Content` — success but nothing to send back, common after DELETE
+
+**300–399 — Redirects.** The resource has moved somewhere else.
+
+- `301 Moved Permanently` — the resource has a new permanent URL
+- `302 Found` — temporary redirect
+
+**400–499 — Client Errors.** Something was wrong with the request itself and the problem is on your end.
+
+- `400 Bad Request` — the request was malformed or had invalid data
+- `401 Unauthorized` — you’re not authenticated, you need to log in
+- `403 Forbidden` — you’re authenticated but you don’t have permission
+- `404 Not Found` — the resource doesn’t exist
+
+**500–599 — Server Errors.** Something went wrong on the server and the problem is not your fault.
+
+- `500 Internal Server Error` — generic server failure, something crashed
+- `503 Service Unavailable` — the server is down or overloaded
+
+## Headers You’ll Actually Use
+
+Headers are the metadata layer of HTTP. Every request and response has them, and they carry all sorts of information about what’s being sent and how to handle it.
+
+**Content-Type** tells the receiver what format the body is in. `application/json` for JSON data, `text/html` for HTML, `multipart/form-data` for file uploads. Without this, the receiver doesn’t know how to parse the body.
+
+```javascript
+// CLIENT - telling the server you're sending JSON
+const response = await fetch('https://api.example.com/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Alice' }),
+});
+
+// SERVER - telling the client you're responding with JSON
+app.post('/users', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ id: 1, name: 'Alice' }));
+  // note: res.json() does this automatically
+});
+```
+
+**Authorization** carries credentials or tokens. This is how you tell the server who you are.
+
+```javascript
+// CLIENT - attaching a Bearer token to the request
+const response = await fetch('https://api.example.com/profile', {
+  headers: { 'Authorization': `Bearer ${token}` },
+});
+
+// SERVER - reading and validating the token
+app.get('/profile', (req, res) => {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) return res.sendStatus(401);
+  const token = authHeader.split(' ')[1]; // strip "Bearer "
+  // verify token…
+  res.json({ user: 'Alice' });
+});
+```
+
+**Cache-Control** tells browsers and CDNs how long they can cache a resource before fetching it again. `max-age=3600` means cache for an hour. `no-cache` means always check for a fresh version.
+
+```javascript
+// CLIENT - you don't usually set this on requests, the browser handles it
+// but you can force a fresh fetch by bypassing the cache
+const response = await fetch('https://api.example.com/config', {
+  headers: { 'Cache-Control': 'no-cache' },
+});
+
+// SERVER - telling the client how long to cache the response
+app.get('/config', (req, res) => {
+  res.setHeader('Cache-Control', 'max-age=3600'); // cache for 1 hour
+  res.json({ theme: 'dark' });
+});
+```
+
+## Accept and Content Negotiation
+
+`Accept` tells the server what response formats the client can handle. Used in content negotiation.
+
+```
+Accept: text/html, application/json, text/plain, */*
+```
+
+That’s the browser saying “I can handle HTML, JSON, or plain text, give me whichever works best.” This is called content negotiation: the server reads that header and responds with the best matching format, setting `Content-Type` in the response to tell the client what it actually sent.
+
+```javascript
+// CLIENT - telling the server you want JSON back
+const response = await fetch('https://api.example.com/users/42', {
+  headers: { 'Accept': 'application/json' },
+});
+
+// SERVER - reading what the client accepts and responding accordingly
+app.get('/users/:id', (req, res) => {
+  const accept = req.headers['accept'];
+  if (accept.includes('application/json')) {
+    res.json({ id: 42, name: 'Alice' });
+  } else if (accept.includes('text/html')) {
+    res.send('<h1>Alice</h1>');
+  } else {
+    res.sendStatus(406); // Not Acceptable
+  }
+});
+```
+
+The practical benefit is that the same endpoint can serve different formats to different clients. A browser might get HTML, a mobile app might get JSON, a script might get plain text, all from the same URL, all controlled by the `Accept` header.
+
+## Accept-Encoding, Content-Encoding, and Compression
+
+Every response can be compressed before it’s sent, cutting the amount of data traveling over the network and it follows the same content negotiation pattern as `Accept` above.
+
+The browser sends an `Accept-Encoding` header listing what compression it supports:
+
+```
+Accept-Encoding: gzip, br, deflate
+```
+
+The server compresses the response using the best algorithm both sides support, and tells the client what it used via `Content-Encoding` — `gzip` or `br` for Brotli. The browser decompresses it automatically and you never see any of this as a developer.
+
+Most CDNs apply compression automatically. If you’re running your own server, turning it on is usually a one-line config change and one of the first things worth doing.
+
+**Access-Control-Allow-Origin** is a CORS header that controls which origins are allowed to access the resource. Prevents random websites from making requests to your API on behalf of a user. The browser sends the `Origin` header automatically on cross-origin requests, you don’t set this yourself — the browser adds it.
+
+```javascript
+// SERVER - allowing specific origins (or all with *)
+const cors = require('cors');
+// allow everyone
+app.use(cors());
+// or allow only a specific origin
+app.use(cors({ origin: 'https://yoursite.com' }));
+// or set it manually per route
+app.get('/data', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://yoursite.com');
+  res.json({ data: 'here' });
+});
+```
+
+## HTTPS — HTTP Secured
+
+Plain HTTP sends everything as readable text where every request, header, and cookie can be read by anyone intercepting the traffic. HTTPS fixes that by wrapping the connection in TLS, which does two things:
+
+- **Encryption** — data is encrypted on your device and decrypted only at the server. Anyone intercepting it in between just sees unreadable bytes, which is what protects passwords, card numbers, and session tokens in transit.
+
+- **Verification** — TLS certificates prove the server is who it claims to be. When you visit example.com, your browser checks that its certificate was issued to example.com by a trusted certificate authority, which stops an attacker from standing up a fake server and intercepting traffic (a man-in-the-middle attack).
+
+### Why it matters for development
+
+Some browser APIs such as service workers, geolocation, camera access, simply won’t work without HTTPS. And cookies with the `Secure` flag are only sent over HTTPS, so if you’re storing auth tokens in cookies, that flag is what stops them leaking over an unencrypted connection.
+
+<div className="blog-callout">
+  PS: This is based on my own research and notes. I always recommend checking other resources if you want to go deeper. I wrote this mostly for myself, but if it helps someone else along the way, that’s a win. Thanks for reading.
+</div>
