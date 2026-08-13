@@ -6,7 +6,7 @@ import { getBlogPosts, type BlogPost } from '@/lib/posts';
 export default function Blog(): React.JSX.Element {
   const posts = getBlogPosts().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return (
-    <main className='blog-page-container'>
+    <main id='main-content' className='blog-page-container'>
       <h1>
         Hey, <span className='accent-underline'>welcome</span> to my <span className='accent-underline'>blog</span> 👋
       </h1>

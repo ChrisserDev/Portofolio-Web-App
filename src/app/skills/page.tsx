@@ -3,7 +3,7 @@ import './skills.scss';
 
 export default function SkillsPage(): React.JSX.Element {
   return (
-    <main className='skills-page-container'>
+    <main id='main-content' className='skills-page-container'>
       <h1><span className='accent-underline'>Skills</span></h1>
       <ul>
         <li>

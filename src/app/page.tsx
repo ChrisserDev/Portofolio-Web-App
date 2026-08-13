@@ -4,7 +4,7 @@ import './globals.scss';
 
 export default function Home() {
   return (
-    <main className='home-page-container'>
+    <main id='main-content' className='home-page-container'>
       <div className='home-page-content'>
         <div className='home-page-title'>
           <div className='title-with-image'>

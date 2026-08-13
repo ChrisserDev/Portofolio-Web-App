@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body className={quicksand.className}>
+        <a href='#main-content' className='skip-to-content'>Skip to main content</a>
         <div className='page-container'>
           <NavigationMenu />
           {children}
