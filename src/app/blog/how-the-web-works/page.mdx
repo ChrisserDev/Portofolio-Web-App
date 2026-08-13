@@ -32,7 +32,7 @@ Think about what happens when something goes wrong. If it's all one big process,
 Each layer represents a specific step in the journey data takes from one computer to another.
 
 <figure className="blog-figure">
-  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/osi_model.webp" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/osi_model.webp" alt="The OSI Model Diagram" />
   <figcaption>
     The OSI Model Diagram. Source:{' '}
     <a
@@ -54,7 +54,7 @@ When you type a domain name like google.com into your browser, the first thing t
 DNS is an Application Layer (L7) protocol, but it is separate from HTTP, and the HTTP request is not created during DNS resolution. DNS only resolves the domain name to an IP address; the HTTP request is created later, after the IP address is known and the connection process begins.
 
 <figure className="blog-figure">
-  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/DNS_Lookup.webp" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/DNS_Lookup.webp" alt="DNS Lookup" />
   <figcaption>DNS Lookup</figcaption>
 </figure>
 
@@ -69,7 +69,7 @@ The browser handles this automatically. You never have to type :443, it just kno
 
 
 <figure className="blog-figure">
-  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/port.webp" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/port.webp" alt="Port" />
   <figcaption>Port</figcaption>
 </figure>
 
@@ -88,7 +88,7 @@ Once the TCP connection is established, a TLS handshake may occur if HTTPS is be
 TLS is often associated with the OSI Presentation Layer (L6) because it handles encryption and data representation concerns, although in practice it does not map cleanly to a single OSI layer and was designed independently of the OSI model.
 
 <figure className="blog-figure">
-  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/tcp_handshake.webp" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/tcp_handshake.webp" alt="The TCP Handshake" />
   <figcaption>The TCP Handshake</figcaption>
 </figure>
 
@@ -108,7 +108,7 @@ The server processes this and sends back a response with a status code (200 OK, 
 This is still the Application Layer (L7), the top of the OSI stack. HTTP only cares about what data needs to be sent, not how it gets there. The layers below it handle that.
 
 <figure className="blog-figure">
-  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/http_requests.webp" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/http_requests.webp" alt="The HTTP Request" />
   <figcaption>The HTTP Request</figcaption>
 </figure>
 
@@ -127,7 +127,7 @@ IP Packet
 ```
 
 <figure className="blog-figure">
-  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/How_the_Data_Travels.webp" />
+  <img src="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Blog_Assets/How_the_Web_Actually_Works_From_Typing_a_URL_to_Loading_a_Page/How_the_Data_Travels.webp" alt="How the Data Travels" />
   <figcaption>How the Data Travels</figcaption>
 </figure>
 

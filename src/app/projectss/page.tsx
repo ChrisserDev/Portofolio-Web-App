@@ -12,7 +12,7 @@ export default async function Projects(): Promise<JSX.Element> {
   const projectEntries = await db.select().from(projects).orderBy(desc(projects.id));
 
   return (
-    <main className='projects-page-container'>
+    <main id='main-content' className='projects-page-container'>
       <h1><span className='accent-underline'>Projects</span></h1>
       <ul className='projects-list'>
         {projectEntries.map((project) => (
@@ -24,13 +24,13 @@ export default async function Projects(): Promise<JSX.Element> {
               <div className='project-card-body'>
                 <header className='project-card-header'>
                   <h2>{project.title}</h2>
-                  <nav className='project-links'>
-                    {project.demo[0] && 
-                    <Link href={project.demo[0]} target='_blank' rel='noreferrer noopener'>
+                  <nav className='project-links' aria-label={`${project.title} links`}>
+                    {project.demo[0] &&
+                    <Link href={project.demo[0]} target='_blank' rel='noreferrer noopener' aria-label={`${project.title} GitHub Repo`}>
                         GitHub Repo
                     </Link>
                     }
-                    <Link href={project.demo[1]} target='_blank' rel='noreferrer noopener'>
+                    <Link href={project.demo[1]} target='_blank' rel='noreferrer noopener' aria-label={`${project.title} Live Demo`}>
                       Live Demo
                     </Link>
                   </nav>

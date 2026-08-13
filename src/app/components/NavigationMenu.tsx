@@ -14,8 +14,14 @@ export default function NavigationMenu(): React.JSX.Element {
 
   return (
     <>
-      <button className='mobile-menu-toggle' onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
+      <button
+        className='mobile-menu-toggle'
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        aria-expanded={isMenuOpen}
+        aria-controls='primary-navigation'
+      >
+        <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' aria-hidden='true' focusable='false'>
           {isMenuOpen ? (
             <>
               <line x1='18' y1='6' x2='6' y2='18'></line>
@@ -30,7 +36,7 @@ export default function NavigationMenu(): React.JSX.Element {
           )}
         </svg>
       </button>
-      <nav className={`navigation-menu ${isMenuOpen ? 'mobile-open' : ''}`}  onClick={() => setIsMenuOpen(!isMenuOpen)}>
+      <nav id='primary-navigation' aria-label='Primary' className={`navigation-menu ${isMenuOpen ? 'mobile-open' : ''}`}  onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <ul className='navigation-pages'>
           <li>
             <Link href='/' className={handleNavPageActiveState('/')} aria-label='About Me Section'>About Me</Link>

@@ -56,6 +56,25 @@ body {
   min-height: 100vh;
 }
 
+.skip-to-content {
+  position: absolute;
+  top: -3rem;
+  left: 0.5rem;
+  z-index: 2000;
+  padding: 0.75rem 1.25rem;
+  background: #ffcc00;
+  color: #171717;
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s ease;
+
+  &:focus {
+    top: 0;
+    outline: 3px solid #0e616c;
+    outline-offset: 2px;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;

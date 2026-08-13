@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function ExperiencePage(): React.JSX.Element {
   return (
-    <main className='experience-page-container'>
+    <main id='main-content' className='experience-page-container'>
       <h1><span className='accent-underline'>Work Experience</span></h1>
       <div className='current-job-section'>
         <div className='current-job-title'>
