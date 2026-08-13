@@ -23,7 +23,7 @@ export default function Blog(): React.JSX.Element {
               {post.image && (
                 <Image src={post.image} className={'blog-post-thumbnail'} alt={post.title} width={200} height={200} />
               )}
-              <section>
+              <section className='blog-post-body'>
                 <h3>{post.title}</h3>
                 <p>{post.description}</p>
                 <time>{post.date}</time>
