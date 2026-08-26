@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "economical-stories": {
+      "source": "uiverify/uiverify",
+      "sourceType": "github",
+      "skillPath": "packages/skills/skills/economical-stories/SKILL.md",
+      "computedHash": "3b23874be48ada7f7d3a204d294a10f91bfb11ce63822b9a7b5430ce2ecd22ba"
+    },
+    "playwright-visual-testing": {
+      "source": "uiverify/uiverify",
+      "sourceType": "github",
+      "skillPath": "packages/skills/skills/playwright-visual-testing/SKILL.md",
+      "computedHash": "c15524f6705ccf6be7f97eb6f4239b57ffa2ef449050b89496c00e7ec6be8310"
+    },
+    "triage-visual-changes": {
+      "source": "uiverify/uiverify",
+      "sourceType": "github",
+      "skillPath": "packages/skills/skills/triage-visual-changes/SKILL.md",
+      "computedHash": "67785ef439e0b3092f35886d40418bb1f4bbb716a7618bdb9afc993fd48737da"
+    }
+  }
+}
