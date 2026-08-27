@@ -1,0 +1,33 @@
+{
+  "v": 1,
+  "entries": {
+    "blog": {
+      "id": "blog",
+      "type": "story",
+      "title": "",
+      "name": "blog",
+      "image": "blog.png"
+    },
+    "experience": {
+      "id": "experience",
+      "type": "story",
+      "title": "",
+      "name": "experience",
+      "image": "experience.png"
+    },
+    "home": {
+      "id": "home",
+      "type": "story",
+      "title": "",
+      "name": "home",
+      "image": "home.png"
+    },
+    "skills": {
+      "id": "skills",
+      "type": "story",
+      "title": "",
+      "name": "skills",
+      "image": "skills.png"
+    }
+  }
+}
