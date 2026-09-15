@@ -112,6 +112,14 @@ export default function NavigationMenu(): React.JSX.Element {
               </svg>
             </a>
           </li>
+          <li>
+            <a href='https://medium.com/@chrisserdev' aria-label='Medium' role='link' tabIndex={0} target="_blank" rel="noopener noreferrer">
+              <svg width='24' height='24' viewBox='0 0 24 24' fill='currentColor' role='img' aria-labelledby='mediumIconTitle' focusable='false'>
+                <title id='mediumIconTitle'>Medium</title>
+                <path d='M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75c.66 0 1.19 2.58 1.19 5.75z'/>
+              </svg>
+            </a>
+          </li>
         </ul>
       </nav>
     </>
