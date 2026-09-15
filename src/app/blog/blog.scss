@@ -2,7 +2,7 @@
     flex-direction: column;
     align-items: center;
     width: calc(70vw - 15rem);
-    margin-top: 6rem;
+    margin-top: 4rem;
     min-height: 100vh;
     position: relative;
     isolation: isolate;
@@ -31,7 +31,7 @@
         line-height: normal;
         color: var(--foreground);
         background: linear-gradient(135deg, rgba(14, 97, 108, 0.04), rgba(146, 224, 235, 0.03));
-        border-left: 4px solid #ffcc00;
+        border-left: 4px solid var(--chip-color);
         border-radius: 8px;
         box-shadow: 0 2px 12px rgba(14, 97, 108, 0.08);
         font-weight: 300;
@@ -83,14 +83,14 @@
                 }
                 &:hover {
                     box-shadow: 0 2px 8px rgba(14, 97, 108, 0.1);
-                    border-color: rgba(255, 204, 0, 0.35);
+                    border-color: rgba(14, 97, 108, 0.35);
                     background: rgba(14, 97, 108, 0.04);
 
                     .blog-post-arrow {
                         opacity: 1;
                         transform: translateX(0);
-                        color: #ffcc00;
-                        border-color: rgba(255, 204, 0, 0.5);
+                        color: var(--chip-color);
+                        border-color: rgba(14, 97, 108, 0.5);
                     }
                 }
 
@@ -119,6 +119,12 @@
                 }
 
                 time {
+                    font-size: 0.9rem;
+                    color: var(--foreground);
+                    opacity: 0.6;
+                }
+
+                .blog-post-reading-time {
                     font-size: 0.9rem;
                     color: var(--foreground);
                     opacity: 0.6;
@@ -201,7 +207,7 @@
     font-size: 1.05rem;
     width: 90%;
     @media screen and (min-width: 1025px) {
-        width: 60%;        
+        width: 60%;
     }
 
     h1 {
@@ -218,7 +224,7 @@
         font-weight: 700;
         margin: 2.5rem 0 1rem;
         color: var(--foreground);
-        border-bottom: 2px solid rgba(255, 204, 0, 0.4);
+        border-bottom: 2px solid rgba(14, 97, 108, 0.4);
         padding-bottom: 0.4rem;
     }
 
@@ -236,10 +242,10 @@
     }
 
     a {
-        color: #ffcc00;
+        color: var(--chip-color);
         text-decoration: underline;
         text-underline-offset: 3px;
-        &:hover { color: lighten(#ffcc00, 15%); }
+        &:hover { opacity: 0.75; }
     }
 
     strong {
@@ -302,10 +308,10 @@
     }
 
     blockquote {
-        border-left: 4px solid #ffcc00;
+        border-left: 4px solid var(--chip-color);
         padding: 0.75rem 1.25rem;
         margin: 1.5rem 0;
-        background: rgba(255, 204, 0, 0.04);
+        background: rgba(14, 97, 108, 0.04);
         border-radius: 0 8px 8px 0;
         color: var(--foreground);
         opacity: 0.8;
@@ -322,7 +328,7 @@
         font-style: italic;
         color: var(--foreground);
         opacity: 0.75;
-        border-left: 3px solid rgba(255, 204, 0, 0.5);
+        border-left: 3px solid rgba(14, 97, 108, 0.5);
         padding: 0.6rem 1.2rem;
         margin: 1.5rem 0;
         font-size: 1.05rem;

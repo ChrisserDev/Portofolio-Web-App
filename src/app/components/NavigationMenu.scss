@@ -30,7 +30,7 @@
     flex-direction: column;
     justify-content: center;
     li {
-      font-size: 1.1rem;
+      font-size: 1.5rem;
       font-weight: bold;
       @media screen and (max-width: 1200px) {
         font-size: 1rem;
@@ -71,14 +71,14 @@
         top: 0;
         bottom: 0;
         width: 3px;
-        background-color: #ffcc00;
+        background-color: #92e0eb;
         transform: scaleY(0);
         transition: transform 0.25s ease;
       }
 
       &:hover {
         color: #ffffff;
-        background-color: rgba(255, 204, 0, 0.1);
+        background-color: rgba(146, 224, 235, 0.1);
         transform: translateX(2px);
         svg {
           opacity: 1;
@@ -90,8 +90,8 @@
       }
 
       &.is-active {
-        color: #ffcc00;
-        background-color: rgba(255, 204, 0, 0.16);
+        color: #92e0eb;
+        background-color: rgba(146, 224, 235, 0.16);
         svg {
           opacity: 1;
         }
@@ -124,8 +124,8 @@
         transition: color 0.25s ease, background-color 0.25s ease, transform 0.2s ease;
 
         &:hover {
-          color: #ffcc00;
-          background-color: rgba(255, 204, 0, 0.12);
+          color: #92e0eb;
+          background-color: rgba(146, 224, 235, 0.12);
           transform: translateY(-2px);
         }
       }
@@ -247,7 +247,7 @@
     }
     
     &.mobile-portrait {
-      @media screen and (max-width: 999px) {
+      @media screen and (max-width: 1024px) {
         display: block;
         width: 120px;
         height: 120px;
@@ -324,7 +324,7 @@
   
   h1, h2 {
     font-size: 4rem;
-    color: #ffcc00;
+    color: var(--chip-color);
     @media screen and (max-width: 999px) {
       font-size: 3rem;
     }
@@ -393,14 +393,14 @@
     font-size: 1.2rem;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s, border 0.3s;
-    background: #ffcc00;
-    color: rgb(41, 38, 38);
+    background: #0e616c;
+    color: #ffffff;
     margin-left: 1.5rem;
     font-weight: 600;
     border: none;
     &:hover {
       color: white;
-      box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.7);
+      box-shadow: 0px 0px 6px rgba(146, 224, 235, 0.7);
     }
     @media screen and (max-width: 999px) {
       font-size: 0.9rem;
@@ -410,11 +410,11 @@
 .browse-projects {
   background-color: transparent;
   color: var(--foreground);
-  border: 2px solid #ffcc00;
+  border: 2px solid #0e616c;
   margin-left: 0;
   &:hover {
-    background-color: #ffcc00;
-    color: #333;
+    background-color: #0e616c;
+    color: #ffffff;
     box-shadow: 0px 0px 6px rgba(14, 97, 108, 0.7);
   }
 }
@@ -436,7 +436,7 @@
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    border-right: 10px solid #ffcc00;
+    border-right: 10px solid var(--chip-color);
     opacity: 1;
     --name-width: 12.5ch;
     animation: typing 1.7s steps(20, end) 1.1s forwards, blink-caret 0.8s step-end infinite 1.8s;
@@ -461,5 +461,5 @@
 
 @keyframes blink-caret {
   0%, 100% { border-color: transparent }
-  50% { border-color: #ffcc00 }
+  50% { border-color: var(--chip-color) }
 }

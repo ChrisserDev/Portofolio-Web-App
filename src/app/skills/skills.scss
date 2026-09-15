@@ -52,7 +52,7 @@
             &:hover img,
             &:focus-within img {
                 transform: translateY(-2px) scale(1.04);
-                filter: drop-shadow(0 0 4px rgba(236, 217, 144, 0.418));
+                filter: drop-shadow(0 0 4px var(--chip-color));
             }
 
             p {
@@ -62,7 +62,7 @@
             }
             &:hover p,
             &:focus-within p {
-                color: #ffcc00;
+                color: var(--chip-color);
                 letter-spacing: 1.5px;
                 opacity: 1;
                 transform: translateY(-1px);
