@@ -18,11 +18,11 @@ export default function Home() {
           </div>
           <h3>Full Stack Developer</h3>
           <p className='home-page-description'>
-            I have 3+ years of experience in <span className='desc-skill'>TypeScript</span>, <span className='desc-skill'>React</span>, <span className='desc-skill'>Node.js</span>, <span className='desc-skill'>SQL</span> and <span className='desc-skill'>Cloud</span> technologies. I have an interest in <span className='desc-skill'>software architecture</span>, <span className='desc-skill'>system design</span>, and <span className='desc-skill'>Agentic coding.</span> <br/>  <br/>
-            If you&apos;d like to see what I&apos;ve been working on, follow my work log on <span><a className='github-link desc-skill' href="https://github.com/ChrisserDev" target='_blank' aria-label="Link to my personal Github profile" title="Link to my personal Github profile">Github</a></span> and updates on <span><a className='linkedin-link desc-skill' href="https://www.linkedin.com/in/cristianserban24/"  target='_blank' aria-label="Link to my personal Linkedin profile" title="Link to my personal Linkedin profile">LinkedIn</a></span> where I share progress, small wins, and experiments as I keep building and learning.
+            Full-Stack Developer with 3+ years of experience in <span className='desc-skill'>TypeScript</span>, <span className='desc-skill'>React</span>, <span className='desc-skill'>Node.js</span>, and <span className='desc-skill'>Cloud Systems</span>. At ITS, I designed and built the Bulk Pricing system to support enterprise sales, and integrated <span className='desc-skill'>AI coding tools</span> and <span className='desc-skill'>MCP servers</span> into the team&apos;s workflow, cutting typical delivery time by ~30%. <br/> <br/>
+            Interested in <span className='desc-skill'>software architecture</span>, <span className='desc-skill'>scalability</span>, <span className='desc-skill'>AI</span> and <span className='desc-skill'>Agentic coding</span>.
           </p>
           <Link className='browse-projects' href="/projectss">Browse Projects</Link>
-          <a className='resume-link' href="https://drive.google.com/file/d/1xi7oOYXSV-Il3fXTJfohOmn1Nvmni1aL/view?usp=sharing" target='_blank' rel="noopener noreferrer" aria-label='Link to Cristian Resume.'>Resume</a>
+          <a className='resume-link' href="https://drive.google.com/file/d/1SWFwlEDwSx3CY_pd3Uw9BhfkHphDtDn2/view?usp=sharing" target='_blank' rel="noopener noreferrer" aria-label='Link to Cristian Resume.'>Resume</a>
         </div>
         <div className='portrait-image-wrapper'>
           <Image className='portrait-image' src="/portrait.png" width={300} height={300} alt="Image of Cristian Serban"/>
