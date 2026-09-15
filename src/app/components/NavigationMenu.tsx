@@ -39,19 +39,51 @@ export default function NavigationMenu(): React.JSX.Element {
       <nav id='primary-navigation' aria-label='Primary' className={`navigation-menu ${isMenuOpen ? 'mobile-open' : ''}`}  onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <ul className='navigation-pages'>
           <li>
-            <Link href='/' className={handleNavPageActiveState('/')} aria-label='About Me Section'>About Me</Link>
+            <Link href='/' className={handleNavPageActiveState('/')} aria-label='About Me Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <circle cx='12' cy='8' r='4' />
+                <path d='M4 21c0-4 3.58-7 8-7s8 3 8 7' />
+              </svg>
+              <span>About Me</span>
+            </Link>
           </li>
           <li>
-            <Link href='/experience' className={handleNavPageActiveState('/experience')} aria-label='Work Experience Section'>Work Experience</Link>
+            <Link href='/experience' className={handleNavPageActiveState('/experience')} aria-label='Work Experience Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <rect x='3' y='7' width='18' height='13' rx='2' />
+                <path d='M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' />
+                <path d='M3 13h18' />
+              </svg>
+              <span>Work Experience</span>
+            </Link>
           </li>
           <li>
-            <Link href='/projectss' className={handleNavPageActiveState('/projectss')} aria-label='Projects Section'>Projects</Link>
+            <Link href='/projectss' className={handleNavPageActiveState('/projectss')} aria-label='Projects Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <path d='M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z' />
+              </svg>
+              <span>Projects</span>
+            </Link>
           </li>
           <li>
-            <Link href='/skills' className={handleNavPageActiveState('/skills')} aria-label='Skills Section'>Skills</Link>
+            <Link href='/skills' className={handleNavPageActiveState('/skills')} aria-label='Skills Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <polyline points='8 6 3 12 8 18' />
+                <polyline points='16 6 21 12 16 18' />
+              </svg>
+              <span>Skills</span>
+            </Link>
           </li>
           <li>
-            <Link href='/blog' className={handleNavPageActiveState('/blog')} aria-label='Blog Section'>Blog</Link>
+            <Link href='/blog' className={handleNavPageActiveState('/blog')} aria-label='Blog Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <path d='M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z' />
+                <polyline points='14 3 14 9 20 9' />
+                <path d='M8 13h8' />
+                <path d='M8 17h5' />
+              </svg>
+              <span>Blog</span>
+            </Link>
           </li>
         </ul>
         <ul className='social-links'>
