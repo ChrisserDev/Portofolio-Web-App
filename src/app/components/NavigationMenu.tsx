@@ -39,19 +39,51 @@ export default function NavigationMenu(): React.JSX.Element {
       <nav id='primary-navigation' aria-label='Primary' className={`navigation-menu ${isMenuOpen ? 'mobile-open' : ''}`}  onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <ul className='navigation-pages'>
           <li>
-            <Link href='/' className={handleNavPageActiveState('/')} aria-label='About Me Section'>About Me</Link>
+            <Link href='/' className={handleNavPageActiveState('/')} aria-label='About Me Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <circle cx='12' cy='8' r='4' />
+                <path d='M4 21c0-4 3.58-7 8-7s8 3 8 7' />
+              </svg>
+              <span>About Me</span>
+            </Link>
           </li>
           <li>
-            <Link href='/experience' className={handleNavPageActiveState('/experience')} aria-label='Work Experience Section'>Work Experience</Link>
+            <Link href='/experience' className={handleNavPageActiveState('/experience')} aria-label='Work Experience Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <rect x='3' y='7' width='18' height='13' rx='2' />
+                <path d='M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' />
+                <path d='M3 13h18' />
+              </svg>
+              <span>Work Experience</span>
+            </Link>
           </li>
           <li>
-            <Link href='/projectss' className={handleNavPageActiveState('/projectss')} aria-label='Projects Section'>Projects</Link>
+            <Link href='/projectss' className={handleNavPageActiveState('/projectss')} aria-label='Projects Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <path d='M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z' />
+              </svg>
+              <span>Projects</span>
+            </Link>
           </li>
           <li>
-            <Link href='/skills' className={handleNavPageActiveState('/skills')} aria-label='Skills Section'>Skills</Link>
+            <Link href='/skills' className={handleNavPageActiveState('/skills')} aria-label='Skills Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <polyline points='8 6 3 12 8 18' />
+                <polyline points='16 6 21 12 16 18' />
+              </svg>
+              <span>Skills</span>
+            </Link>
           </li>
           <li>
-            <Link href='/blog' className={handleNavPageActiveState('/blog')} aria-label='Blog Section'>Blog</Link>
+            <Link href='/blog' className={handleNavPageActiveState('/blog')} aria-label='Blog Section'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.8' strokeLinecap='round' strokeLinejoin='round' aria-hidden='true' focusable='false'>
+                <path d='M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z' />
+                <polyline points='14 3 14 9 20 9' />
+                <path d='M8 13h8' />
+                <path d='M8 17h5' />
+              </svg>
+              <span>Blog</span>
+            </Link>
           </li>
         </ul>
         <ul className='social-links'>
@@ -77,6 +109,14 @@ export default function NavigationMenu(): React.JSX.Element {
               <svg width='24' height='24' viewBox='0 0 24 24' fill='currentColor' role='img' aria-labelledby='linkedinIconTitle'focusable='false'>
                 <title id='linkedinIconTitle'>LinkedIn</title>
                 <path d='M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z'/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href='https://medium.com/@chrisserdev' aria-label='Medium' role='link' tabIndex={0} target="_blank" rel="noopener noreferrer">
+              <svg width='24' height='24' viewBox='0 0 24 24' fill='currentColor' role='img' aria-labelledby='mediumIconTitle' focusable='false'>
+                <title id='mediumIconTitle'>Medium</title>
+                <path d='M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75c.66 0 1.19 2.58 1.19 5.75z'/>
               </svg>
             </a>
           </li>

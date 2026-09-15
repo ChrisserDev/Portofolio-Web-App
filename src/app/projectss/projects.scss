@@ -3,7 +3,7 @@ $card-bg: #23243a;
 $text: #fff;
 $muted: #bdbdbd;
 $primary: #6ba9ef;
-$accent: #ffcc00;
+$accent: #0e616c;
 
 @mixin card {
     background: linear-gradient(135deg, rgba(14, 97, 108, .04), rgba(146, 224, 235, .03));
@@ -126,7 +126,7 @@ $accent: #ffcc00;
                                 a {
                                     background-color: $accent;
                                     font-weight: 600;
-                                    color: $bg;
+                                    color: $text;
                                     padding: .5rem .8rem;
                                     font-size: .9rem;
                                     border-radius: 999px;

@@ -62,8 +62,8 @@ body {
   left: 0.5rem;
   z-index: 2000;
   padding: 0.75rem 1.25rem;
-  background: #ffcc00;
-  color: #171717;
+  background: #0e616c;
+  color: #ffffff;
   font-weight: 600;
   border-radius: 0 0 8px 8px;
   transition: top 0.2s ease;
@@ -92,8 +92,8 @@ a {
   width: 100%;
   height: 6px;
   border-radius: 999px;
-  background: #ffcc00;
-  box-shadow: 0 4px 18px rgba(255, 204, 0, 0.35);
+  background: var(--chip-color);
+  box-shadow: 0 4px 18px rgba(14, 97, 108, 0.35);
 }
 
 @media (prefers-color-scheme: dark) {

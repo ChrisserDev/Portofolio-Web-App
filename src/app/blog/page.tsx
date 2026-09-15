@@ -27,6 +27,7 @@ export default function Blog(): React.JSX.Element {
                 <h3>{post.title}</h3>
                 <p>{post.description}</p>
                 <time>{post.date}</time>
+                <span className='blog-post-reading-time'> · {post.readingMinutes} min read</span>
               </section>
               <span className="blog-post-arrow" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
