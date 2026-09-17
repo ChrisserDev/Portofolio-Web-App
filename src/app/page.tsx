@@ -22,7 +22,7 @@ export default function Home() {
             Interested in <span className='desc-skill'>software architecture</span>, <span className='desc-skill'>scalability</span>, <span className='desc-skill'>AI</span> and <span className='desc-skill'>Agentic coding</span>.
           </p>
           <Link className='browse-projects' href="/projectss">Browse Projects</Link>
-          <a className='resume-link' href="https://drive.google.com/file/d/1SWFwlEDwSx3CY_pd3Uw9BhfkHphDtDn2/view?usp=sharing" target='_blank' rel="noopener noreferrer" aria-label='Link to Cristian Resume.'>Resume</a>
+          <a className='resume-link' href="https://xxpokwgadanlbdaiughz.supabase.co/storage/v1/object/public/Website%20Links/Resume_Cristian_Serban_Full-Stack_Developer.pdf" target='_blank' rel="noopener noreferrer" aria-label='Link to Cristian Resume.'>Resume</a>
         </div>
         <div className='portrait-image-wrapper'>
           <Image className='portrait-image' src="/portrait.png" width={300} height={300} alt="Image of Cristian Serban"/>
