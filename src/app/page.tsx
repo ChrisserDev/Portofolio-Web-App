@@ -16,9 +16,9 @@ export default function Home() {
               <Image className='portrait-image' src="/portrait.png" width={120} height={120} alt="Image of Cristian Serban"/>
             </div>
           </div>
-          <h3>Full Stack Developer</h3>
+          <h3>Full-Stack Developer</h3>
           <p className='home-page-description'>
-            Full-Stack Developer with 3+ years of experience in <span className='desc-skill'>TypeScript</span>, <span className='desc-skill'>React</span>, <span className='desc-skill'>Node.js</span>, and <span className='desc-skill'>Cloud Systems</span>. At ITS, I designed and built the Bulk Pricing system to support enterprise sales, and integrated <span className='desc-skill'>AI coding tools</span> and <span className='desc-skill'>MCP servers</span> into the team&apos;s workflow, cutting typical delivery time by ~30%. <br/> <br/>
+            Full-Stack Developer with 3+ years of experience in <span className='desc-skill'>TypeScript</span>, <span className='desc-skill'>React</span>, <span className='desc-skill'>Node.js</span>, and <span className='desc-skill'>Cloud Systems</span>. At ITS, I designed and built the Bulk Pricing system to support enterprise sales, and integrated <span className='desc-skill'>AI coding tools</span> and <span className='desc-skill'>MCP servers</span> into the team&apos;s workflow, cutting typical delivery time by ~50%. <br/> <br/>
             Interested in <span className='desc-skill'>software architecture</span>, <span className='desc-skill'>scalability</span>, <span className='desc-skill'>AI</span> and <span className='desc-skill'>Agentic coding</span>.
           </p>
           <Link className='browse-projects' href="/projectss">Browse Projects</Link>

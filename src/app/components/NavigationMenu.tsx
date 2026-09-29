@@ -88,7 +88,7 @@ export default function NavigationMenu(): React.JSX.Element {
         </ul>
         <ul className='social-links'>
           <li>
-            <a href='mailto:cristian.serban33@yahoo.com' aria-label='Email' role='link' tabIndex={0}>
+            <a href='mailto:chrisser.dev@gmail.com' aria-label='Email' role='link' tabIndex={0}>
               <svg width='24'height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' role='img' aria-labelledby='emailIconTitle' focusable='false'>
                 <title id='emailIconTitle'>Email</title>
                 <rect x='2' y='4' width='20' height='16' rx='2' />
